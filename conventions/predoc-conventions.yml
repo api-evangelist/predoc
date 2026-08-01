@@ -1,0 +1,55 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.predoc.ai
+docs: https://docs.predoc.ai
+authentication:
+  style: jwt-bearer
+  detail: >-
+    Short-lived (5-minute) JWT bearer tokens obtained from POST /v1/auth/token using
+    client_id + secret_key, sent as `Authorization: Bearer <access_token>`.
+  ref: authentication/predoc-authentication.yml
+versioning:
+  scheme: uri-path
+  detail: >-
+    Endpoints are versioned in the URI path (e.g. /v1/auth/token, /retrieval/v1).
+    The Partner API product itself carries a semantic version (currently 1.4.1).
+  current: v1
+  ref: lifecycle/predoc-lifecycle.yml
+webhooks:
+  supported: true
+  detail: >-
+    Webhook configurations are managed through the API (create/list/update/delete).
+    Real-time notifications are emitted when records are retrieved, processed, or
+    ready for review.
+  ref: asyncapi/predoc-webhooks.yml
+data_format:
+  clinical_output: FHIR-compliant
+  document_delivery: >-
+    Document endpoints return downloadable artifacts via a `url` property. Partner-facing
+    document display text fields are returned without literal `|` separators; identifiers,
+    URLs, categories, dates, and splice metadata are preserved as received.
+  document_set_modes:
+  - CANVAS_SET
+  - SEGMENT_SET
+  - PRESPLICED
+errors:
+  detail: >-
+    A standard return object carries status/message; not-found conditions return HTTP 404.
+    Some endpoints return an explanatory message field in the standard response object when
+    an operation is not possible (e.g. patient locked, record ineligible for update).
+  ref: errors/predoc-problem-types.yml
+query_conventions:
+  detail: >-
+    Search endpoints (search patients, patient documents, lab results) are migrating from
+    request-body criteria to query parameters; body usage is documented as deprecated and
+    slated for removal in a future release.
+idempotency:
+  supported: false
+  detail: >-
+    No documented idempotency-key header was observed. Record-request V2 endpoints instead
+    provide duplicate-patient protection (guarding against creating duplicate patients with
+    the same PII) rather than a generic idempotency-key contract.
+notes: >-
+  Derived from the published Partner API reference and product/platform documentation.
+  Pagination and rate-limit signaling were not explicitly documented in the public
+  reference at capture time and are intentionally omitted rather than fabricated.

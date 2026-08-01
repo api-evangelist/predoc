@@ -1,0 +1,67 @@
+generated: '2026-07-20'
+method: derived
+source: https://docs.predoc.ai/reference
+entities:
+- name: Patient
+  description: A patient profile in the Predoc application, keyed by patientId; holds PHI and status (Open, Creating, etc.).
+  key: patientId
+- name: RecordRequest
+  description: A record-retrieval request associated with a patient and the requesting organization; returns a record/reference ID and progresses through status states.
+  key: requestId
+  belongs_to:
+  - entity: Patient
+    via: patientId
+- name: Retrieval
+  description: A manual previous-provider record retrieval, tracked by UUID and closable; closure is asynchronous and billable.
+  key: retrievalUuid
+  belongs_to:
+  - entity: Patient
+    via: patientId
+- name: Document
+  description: A clinical document/artifact returned for a patient (HIE docs, facesheets, imaging, procedure notes, lab tests, medications, allergies, vaccines, additional/other records); downloadable via a url property.
+  key: documentId
+  belongs_to:
+  - entity: Patient
+    via: patientId
+- name: ClinicalSummary
+  description: A generated clinical summary document requested for a patient; status polled via the document status endpoint (QUEUEING/QUEUED/GENERATING/ERROR/READY).
+  key: patientSummaryRequestId
+  belongs_to:
+  - entity: Patient
+    via: patientId
+- name: LabResult
+  description: Lab result chemistries/values available for a patient.
+  belongs_to:
+  - entity: Patient
+    via: patientId
+- name: WebhookConfiguration
+  description: A user/organization webhook endpoint registration that receives record lifecycle notifications.
+  key: webhookConfigurationId
+relationships:
+- from: Patient
+  to: RecordRequest
+  type: has_many
+  via: patientId
+- from: Patient
+  to: Retrieval
+  type: has_many
+  via: patientId
+- from: Patient
+  to: Document
+  type: has_many
+  via: patientId
+- from: Patient
+  to: ClinicalSummary
+  type: has_many
+  via: patientId
+- from: Patient
+  to: LabResult
+  type: has_many
+  via: patientId
+- from: RecordRequest
+  to: Document
+  type: has_many
+  via: requestId
+notes: >-
+  Entity graph derived from the Partner API operation surface and reference descriptions.
+  Field-level id prefixes were not published in a public object reference and are not asserted.

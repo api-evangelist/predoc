@@ -1,0 +1,35 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.predoc.ai/reference/authcontroller_signin_v1
+docs: https://docs.predoc.ai
+summary:
+  types:
+  - http
+  http_schemes:
+  - bearer
+  bearer_format: JWT
+  token_endpoint: /v1/auth/token
+  token_ttl_seconds: 300
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  bearer_format: JWT
+  description: >-
+    JWT bearer authentication. Obtain a token by POSTing client_id and secret_key
+    to /v1/auth/token; the response returns a JWT in the access_token field. Include
+    it as `Authorization: Bearer <access_token>` on all subsequent requests. Tokens
+    are valid for 5 minutes and must be refreshed prior to expiration.
+  token_request:
+    endpoint: POST /v1/auth/token
+    credentials:
+    - client_id
+    - secret_key
+    response_field: access_token
+    ttl: 5 minutes
+  sources:
+  - https://docs.predoc.ai/reference/authcontroller_signin_v1
+notes: >-
+  Predoc also supports SSO/SAML integration with multi-factor authentication for
+  application (web app) access per the security & compliance documentation; the
+  Partner API itself uses short-lived JWT bearer tokens.

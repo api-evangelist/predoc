@@ -1,0 +1,42 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.predoc.ai/changelog
+docs: https://docs.predoc.ai/changelog
+scheme: semver
+product: Partner API
+current_version: 1.4.1
+entries:
+- version: 1.4.1
+  title: "Retrieval API Enhancements"
+  url: https://docs.predoc.ai/changelog/partner-api-v141
+  breaking: false
+  highlights:
+  - Added "Close Retrieval Session" endpoint (POST /retrieval/v1/close) to programmatically close an active retrieval session once processing is complete.
+  - Added "Get Retrieval Details" endpoint (GET /retrieval/v1) returning status and metadata of a retrieval for monitoring, debugging, and downstream automation.
+  additions:
+  - POST /retrieval/v1/close
+  - GET /retrieval/v1
+- version: 1.4.0
+  title: "Partner API v1.4.0"
+  url: https://docs.predoc.ai/changelog/partner-api-v140
+  breaking: false
+  highlights:
+  - Backward-compatible update.
+- version: 1.2.0
+  title: "Partner API v1.2.0"
+  url: https://docs.predoc.ai/changelog/partner-api-v120
+  breaking: false
+  highlights:
+  - Deprecated the "doNotKnowPreviousProviders" data attribute; previous providers are now required on ALL requests.
+  deprecations:
+  - doNotKnowPreviousProviders
+- version: 1.1.0
+  title: "Partner API v1.1.0"
+  url: https://docs.predoc.ai/changelog/partner-api-v110
+  breaking: false
+  highlights:
+  - New features, platform improvements, and bug fixes.
+notes: >-
+  Changelog is published as a dated release stream on the Predoc ReadMe docs.
+  Explicit publish dates were not machine-readable at capture time; version ordering
+  and content are captured verbatim from the changelog pages.

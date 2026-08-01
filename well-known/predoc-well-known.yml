@@ -1,0 +1,29 @@
+generated: '2026-07-20'
+method: probed
+source: live probes of Predoc website, docs, and API sandbox hosts
+hosts:
+- host: https://www.predoc.ai
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+- host: https://docs.predoc.ai
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+- host: https://partner-sandbox.predoc.ai
+  documents:
+  - {path: /.well-known/security.txt, status: 503}
+  - {path: /.well-known/openid-configuration, status: 503}
+  - {path: /.well-known/oauth-authorization-server, status: 503}
+  - {path: /.well-known/api-catalog, status: 503}
+  - {path: /.well-known/ai-plugin.json, status: 503}
+result: none
+notes: >-
+  No /.well-known discovery documents are published. The sandbox API host returns 503 to
+  unauthenticated requests. Absence is valid, expected data; no WellKnown pointer is wired.

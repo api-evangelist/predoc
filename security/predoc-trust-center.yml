@@ -1,0 +1,36 @@
+generated: '2026-07-20'
+method: searched
+probe: true
+source: https://www.predoc.ai/security-compliance
+url: https://www.predoc.ai/security-compliance
+certifications:
+- SOC 2 Type II
+- HIPAA
+- FDA 21 CFR Part 11
+recognition:
+- CMS "Friend of the Ecosystem" participant
+- CHIME Foundation member
+- Healthcare Technology Report top healthcare technology company (2026)
+security_practices:
+- AES-256 encryption at rest
+- TLS 1.3 in transit
+- Role-based access control (RBAC)
+- SSO/SAML integration with multi-factor authentication
+- Annual third-party penetration testing
+- 24-hour incident notification policy
+- Business Associate Agreement (BAA) executed within 48 hours
+compliance_notes:
+  soc2: "Annual third-party audits against the Trust Services Criteria; report available under NDA for qualified prospects."
+  hipaa: "Administrative, physical, and technical safeguards; regular risk assessments and workforce training."
+  fda_21_cfr_part_11: "For clinical research customers: complete audit trails for data access/modification and authenticated electronic signatures."
+evidence:
+- source: https://www.predoc.ai/security-compliance
+  keywords:
+  - soc 2 type ii
+  - hipaa
+  - fda 21 cfr part 11
+  - tls 1.3
+  - aes-256
+notes: >-
+  Predoc publishes a Security & Compliance page rather than a dedicated trust.<domain>
+  portal; certifications and practices captured verbatim from that page.

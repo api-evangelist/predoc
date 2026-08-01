@@ -1,8 +1,30 @@
 aid: predoc
 name: Predoc
-description: 'Predoc is a company surfaced as a portfolio company of northzone and added to the API Evangelist
-  network as a stub for enrichment. Sector: healthcare; ai. This profile is a lead awaiting the enrichment
-  pipeline.'
+description: >-
+  Predoc is an AI-native medical records platform that automates the retrieval,
+  aggregation, normalization, de-duplication, and structured delivery of complete
+  patient histories. It queries health information exchanges (HIEs) and initiates
+  outreach to non-connected providers, ingests faxes, PDFs, and digital formats,
+  and delivers clean, FHIR-compliant clinical data to healthcare organizations and
+  clinical research teams via a REST Partner API, file exports, or direct EHR
+  integration. The Predoc Partner API (v1.4.1) exposes patient management,
+  record-retrieval requests, record uploads, granular clinical document endpoints
+  (medications, labs, imaging, procedures, notes, vaccines, allergies), clinical
+  summaries, and webhook event notifications, secured with short-lived JWT bearer
+  tokens.
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://cdn.prod.website-files.com/6827c1994862c627993a82d8/688c883a300cc1480f08f8a1_favicon_32.png
 url: https://raw.githubusercontent.com/api-evangelist/predoc/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -12,16 +34,108 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-20'
 tags:
 - Company
-- Healthcare; Ai
-apis: []
+- Healthcare
+- Medical Records
+- Health Information Exchange
+- FHIR
+- Clinical Data
+- AI
+- Interoperability
+- EHR Integration
+- Webhooks
+- Clinical Research
+apis:
+- name: Predoc Partner API
+  description: >-
+    REST API for retrieving, aggregating, and delivering structured patient medical
+    records. Covers patient management, record-retrieval requests, previous-provider
+    retrievals, record uploads, granular clinical document endpoints, clinical
+    summaries, and webhook configuration. Authenticated with short-lived (5-minute)
+    JWT bearer tokens obtained from client_id/secret_key credentials.
+  humanURL: https://docs.predoc.ai
+  baseURL: https://partner-sandbox.predoc.ai/api/v1
+  version: 1.4.1
+  tags:
+  - Healthcare
+  - Medical Records
+  - FHIR
+  - Webhooks
+  properties:
+  - type: Documentation
+    url: https://docs.predoc.ai
+  - type: APIReference
+    url: https://docs.predoc.ai/reference
+  - type: Authentication
+    url: authentication/predoc-authentication.yml
+  - type: Webhooks
+    url: asyncapi/predoc-webhooks.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DomainSecurity
+  url: security/predoc-domain-security.yml
 - type: Website
   url: https://www.predoc.ai
+- type: DeveloperPortal
+  url: https://docs.predoc.ai
+- type: Documentation
+  url: https://docs.predoc.ai
+- type: APIReference
+  url: https://docs.predoc.ai/reference
+- type: GettingStarted
+  url: https://www.predoc.ai/get-started
+- type: Login
+  url: https://app.predoc.ai/login
+- type: Blog
+  url: https://www.predoc.ai/blog
+- type: Support
+  url: https://www.predoc.ai/contact
+- type: TermsOfService
+  url: https://www.predoc.ai/terms-of-service
+- type: PrivacyPolicy
+  url: https://www.predoc.ai/privacy
+- type: StatusPage
+  url: https://predoc.statuspage.io
+- type: ChangeLog
+  url: https://docs.predoc.ai/changelog
+- type: Compliance
+  url: https://www.predoc.ai/security-compliance
+- type: LLMsTxt
+  url: llms/predoc-llms.txt
+- type: Authentication
+  url: authentication/predoc-authentication.yml
+- type: Conventions
+  url: conventions/predoc-conventions.yml
+- type: Conformance
+  url: conformance/predoc-conformance.yml
+- type: TrustCenter
+  url: security/predoc-trust-center.yml
+- type: Lifecycle
+  url: lifecycle/predoc-lifecycle.yml
+- type: Deprecation
+  url: lifecycle/predoc-lifecycle.yml
+- type: ChangeLog
+  url: changelog/predoc-changelog.yml
+- type: Sandbox
+  url: sandbox/predoc-sandbox.yml
+- type: MCPServer
+  url: mcp/predoc-mcp.yml
+- type: Webhooks
+  url: asyncapi/predoc-webhooks.yml
+- type: DataModel
+  url: data-model/predoc-data-model.yml
+- type: ErrorCatalog
+  url: errors/predoc-problem-types.yml
+- type: AgentSkill
+  url: skills/_index.yml
+x-enrichment:
+  date: '2026-07-20'
+  status: enriched
+  artifacts_added: 18
+  pass: local-v1

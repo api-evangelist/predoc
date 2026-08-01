@@ -1,0 +1,27 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.predoc.ai/changelog
+versioning:
+  scheme: uri-path
+  current: v1
+  product_version: 1.4.1
+  docs: https://docs.predoc.ai/changelog
+deprecation:
+  policy_observed: true
+  detail: >-
+    Deprecations are announced through the changelog and inline in the API reference.
+    Examples: the "doNotKnowPreviousProviders" attribute was deprecated in v1.2.0;
+    request-body search criteria on several endpoints are documented as deprecated in
+    favor of query parameters.
+  docs: https://docs.predoc.ai/changelog
+status_page: https://predoc.statuspage.io
+changelog: https://docs.predoc.ai/changelog
+sla:
+  incident_notification: "24-hour incident notification policy (per Security & Compliance)."
+deprecated_features:
+- doNotKnowPreviousProviders (data attribute, removed from workflows in v1.2.0)
+- request-body search criteria on search-patients and lab-results endpoints (use query params)
+notes: >-
+  Deprecation and versioning captured from the changelog and API reference; a public,
+  formalized deprecation-policy document with Sunset/Deprecation HTTP header support
+  (RFC 8594) was not observed and is not asserted.

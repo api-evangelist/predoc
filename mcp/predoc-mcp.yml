@@ -1,0 +1,123 @@
+generated: '2026-07-20'
+method: derived
+status: candidate
+source: https://docs.predoc.ai/reference
+server:
+  name: predoc
+  transport: http
+  note: >-
+    Candidate MCP surface derived from the published Predoc Partner API reference. Predoc
+    does not publish an official hosted MCP server at capture time; tools map one-to-one to
+    real Partner API operationIds. Auth: JWT bearer via POST /v1/auth/token.
+tools:
+- name: get_access_token
+  description: Exchange client_id and secret_key for a short-lived (5-minute) JWT access token.
+  source_operation: AuthController_signIn_v1
+- name: create_patient
+  description: Create a new patient without a record request.
+  source_operation: PatientController_createPatient_v2
+- name: get_patient_information
+  description: Get the full information for a patient by ID (404 if not found).
+  source_operation: PatientController_getPatientInformation_v1
+- name: search_patients
+  description: Find patients from the Predoc application by provided search criteria/PHI.
+  source_operation: PatientController_searchPatientsByInformation_v1
+- name: update_patient_information
+  description: Update patient information while the patient is in Open status.
+  source_operation: PatientController_updatePatientInformation_v1
+- name: get_patient_requests
+  description: List all record requests for a patient regardless of status.
+  source_operation: PatientController_getPatientRequests_v1
+- name: add_request_to_existing_patient
+  description: Create a new record-retrieval request for an existing patient.
+  source_operation: PatientController_addRequestToExistingPatient_v1
+- name: create_record_request_v2
+  description: Create a patient and record request with duplicate-PII protection.
+  source_operation: RequestController_createRecordRequestV2_v2
+- name: list_record_requests
+  description: List all record requests in the Predoc system.
+  source_operation: RequestController_getListOfRecordRequests_v2
+- name: update_record_request
+  description: Update an existing patient record request (Open status only).
+  source_operation: RequestController_updateExistingRecordRequest_v1
+- name: list_facesheet_configs
+  description: List facesheet configs available to pass to a patient request.
+  source_operation: RequestController_facesheetConfigs_v1
+- name: close_retrieval
+  description: Request closure of a manual previous-provider retrieval by UUID (billable).
+  source_operation: RetrievalController_closeRetrieval_v1
+- name: get_retrieval
+  description: Get status and metadata for a manual previous-provider retrieval by UUID.
+  source_operation: RetrievalController_getRetrieval_v1
+- name: upload_record_v2
+  description: Upload patient records with duplicate-PII protection.
+  source_operation: RecordUploadController_uploadRecordV2_v2
+- name: upload_anonymous_record
+  description: Upload an anonymous PDF record (PDF only, max 300MB) not yet tied to a patient.
+  source_operation: RecordUploadController_uploadAnonymousRecord_v1
+- name: get_anonymous_upload_status
+  description: Get the processing status for an anonymous record upload.
+  source_operation: RecordUploadController_getAnonymousRecordUploadStatus_v1
+- name: search_patient_documents
+  description: Search all available documents for a patient per the org document-set mode.
+  source_operation: PatientController_searchPatientDocuments_v2
+- name: get_patient_documents
+  description: List documents for a patient (downloadable via url property).
+  source_operation: PatientDocumentsController_getPatientDocuments_v1
+- name: get_patient_medications
+  description: List medications for a patient.
+  source_operation: PatientDocumentsController_getPatientMedications_v1
+- name: get_patient_lab_tests
+  description: List lab tests for a patient.
+  source_operation: PatientDocumentsController_getPatientLabTests_v1
+- name: get_available_lab_results
+  description: List available lab result chemistries for a patient.
+  source_operation: PatientController_getAvailablePatientChemistries_v1
+- name: get_lab_results
+  description: Get lab result values for a patient by search criteria.
+  source_operation: PatientController_getPatientLabResultsBySearch_v1
+- name: get_patient_imaging_results
+  description: List imaging results for a patient.
+  source_operation: PatientDocumentsController_getPatientImagingResults_v1
+- name: get_patient_procedure_notes
+  description: List procedure notes for a patient.
+  source_operation: PatientDocumentsController_getPatientProcedureNotes_v1
+- name: get_patient_provider_facility_notes
+  description: List provider/facility notes for a patient.
+  source_operation: PatientDocumentsController_getPatientProviderFacilityNotes_v1
+- name: get_patient_drug_allergies
+  description: List drug allergies for a patient.
+  source_operation: PatientDocumentsController_getPatientDrugAllergies_v1
+- name: get_patient_vaccine_records
+  description: List vaccine and immunization records for a patient.
+  source_operation: PatientDocumentsController_getPatientVaccineRecords_v1
+- name: get_patient_hie_documents
+  description: List HIE documents for a patient.
+  source_operation: PatientDocumentsController_getPatientHieDocs_v1
+- name: get_patient_facesheets
+  description: List facesheets for a patient.
+  source_operation: PatientDocumentsController_getPatientFacesheets_v1
+- name: get_patient_additional_records
+  description: List additional records for a patient.
+  source_operation: PatientDocumentsController_getPatientAdditionalRecords_v1
+- name: get_patient_other_records
+  description: List other records for a patient.
+  source_operation: PatientDocumentsController_getPatientOtherRecords_v1
+- name: request_clinical_summary
+  description: Request generation of a clinical summary document for a patient.
+  source_operation: PatientController_requestPatientClinicalSummary_v1
+- name: get_document_status
+  description: Get the status of a generated document (e.g. clinical summary) by document ID.
+  source_operation: DocumentController_getPatientClinicalSummary_v1
+- name: create_webhook_configuration
+  description: Create a webhook configuration.
+  source_operation: WebhookConfigurationController_createWebhookConfiguration_v1
+- name: list_webhook_configurations
+  description: List webhook configurations.
+  source_operation: WebhookConfigurationController_listWebhookConfigurations_v1
+- name: update_webhook_configuration
+  description: Update a webhook configuration.
+  source_operation: WebhookConfigurationController_updateWebhookConfiguration_v1
+- name: delete_webhook_configuration
+  description: Delete a webhook configuration.
+  source_operation: WebhookConfigurationController_deleteWebhookConfiguration_v1

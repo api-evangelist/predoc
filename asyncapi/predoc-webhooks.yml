@@ -1,0 +1,33 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.predoc.ai
+docs: https://docs.predoc.ai
+spec_type: Webhooks
+summary: >-
+  Predoc emits real-time webhook notifications when patient records are retrieved,
+  processed, or ready for review. Webhook endpoints are registered and managed through
+  the Partner API's webhook-configuration operations.
+management_operations:
+- operationId: WebhookConfigurationController_createWebhookConfiguration_v1
+  summary: Create a webhook configuration for the user.
+  ref: https://docs.predoc.ai/reference/webhookconfigurationcontroller_createwebhookconfiguration_v1
+- operationId: WebhookConfigurationController_listWebhookConfigurations_v1
+  summary: List all webhook configurations for the user.
+  ref: https://docs.predoc.ai/reference/webhookconfigurationcontroller_listwebhookconfigurations_v1
+- operationId: WebhookConfigurationController_updateWebhookConfiguration_v1
+  summary: Update a webhook configuration.
+  ref: https://docs.predoc.ai/reference/webhookconfigurationcontroller_updatewebhookconfiguration_v1
+- operationId: WebhookConfigurationController_deleteWebhookConfiguration_v1
+  summary: Delete a webhook configuration.
+  ref: https://docs.predoc.ai/reference/webhookconfigurationcontroller_deletewebhookconfiguration_v1
+events:
+- name: record.retrieved
+  description: Emitted when patient records have been retrieved.
+- name: record.processed
+  description: Emitted when retrieved records have been processed/normalized.
+- name: record.ready
+  description: Emitted when records are ready for review.
+notes: >-
+  Event names are descriptive of the documented notification lifecycle (retrieved /
+  processed / ready for review); the provider documents the notification triggers but a
+  formal AsyncAPI document was not published at capture time.

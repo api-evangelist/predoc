@@ -1,0 +1,26 @@
+generated: '2026-07-20'
+method: generated
+source: https://docs.predoc.ai/reference
+skills:
+- file: predoc-retrieve-patient-records.md
+  name: Request and retrieve a patient's medical records
+  api: Predoc Partner API
+  operations:
+  - AuthController_signIn_v1
+  - RequestController_createRecordRequestV2_v2
+  - PatientController_getPatientRequests_v1
+  - PatientController_getPatientDocuments_v1
+- file: predoc-clinical-summary.md
+  name: Generate and download a patient clinical summary
+  api: Predoc Partner API
+  operations:
+  - AuthController_signIn_v1
+  - PatientController_requestPatientClinicalSummary_v1
+  - DocumentController_getPatientClinicalSummary_v1
+- file: predoc-webhook-setup.md
+  name: Configure webhooks for record lifecycle events
+  api: Predoc Partner API
+  operations:
+  - AuthController_signIn_v1
+  - WebhookConfigurationController_createWebhookConfiguration_v1
+  - WebhookConfigurationController_listWebhookConfigurations_v1

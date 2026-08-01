@@ -1,0 +1,24 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.predoc.ai
+docs: https://docs.predoc.ai
+environments:
+- name: sandbox
+  base_url: https://partner-sandbox.predoc.ai/api/v1
+  purpose: >-
+    Dedicated partner sandbox environment for integration development and testing
+    against the Partner API before production cutover.
+test_vs_live:
+  separation: >-
+    A distinct sandbox host (partner-sandbox.predoc.ai) separates test integration
+    traffic from production. Access requires provisioned client_id/secret_key credentials
+    obtained during partner onboarding.
+test_values:
+  published: false
+  detail: >-
+    Predoc does not publish generic magic/test identifiers (e.g. synthetic patient PII or
+    test cards); sandbox data and credentials are provisioned per partner. No fabricated
+    test values are recorded here.
+notes: >-
+  Predoc advertises a roughly one-to-two developer, two-to-four week path to a production
+  integration, with the sandbox as the first stop.
