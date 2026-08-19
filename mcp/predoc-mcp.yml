@@ -5,10 +5,9 @@ source: https://docs.predoc.ai/reference
 server:
   name: predoc
   transport: http
-  note: >-
-    Candidate MCP surface derived from the published Predoc Partner API reference. Predoc
-    does not publish an official hosted MCP server at capture time; tools map one-to-one to
-    real Partner API operationIds. Auth: JWT bearer via POST /v1/auth/token.
+  note: 'Candidate MCP surface derived from the published Predoc Partner API reference. Predoc does not
+    publish an official hosted MCP server at capture time; tools map one-to-one to real Partner API operationIds.
+    Auth: JWT bearer via POST /v1/auth/token.'
 tools:
 - name: get_access_token
   description: Exchange client_id and secret_key for a short-lived (5-minute) JWT access token.
@@ -121,3 +120,9 @@ tools:
 - name: delete_webhook_configuration
   description: Delete a webhook configuration.
   source_operation: WebhookConfigurationController_deleteWebhookConfiguration_v1
+deployment:
+  mode: none
+  verified: derived
+  tools: 37
+  checked: '2026-08-12'
+  source: catalog MCP census
