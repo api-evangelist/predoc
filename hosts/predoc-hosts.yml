@@ -1,0 +1,72 @@
+generated: '2026-10-14'
+method: derived
+source: the pre-flight dossier, apis.yml pointers, spec servers, well-known, vendors -- nothing fetched here
+generator: derive-hosts.py
+summary:
+  hosts: 5
+  own: 4
+  other_domain: 1
+  platform: 0
+  roles:
+  - identity
+  - other
+  - portal
+  - status
+  - website
+hosts:
+- host: app.predoc.ai
+  found_by:
+  - pointer
+  types:
+  - Login
+  serves: []
+  registrable_domain: predoc.ai
+  role: identity
+  relation: own
+- host: docs.predoc.ai
+  found_by:
+  - pointer
+  - apis[]
+  types:
+  - DeveloperPortal
+  - Documentation
+  - APIReference
+  - ChangeLog
+  serves:
+  - docs
+  registrable_domain: predoc.ai
+  role: portal
+  relation: own
+- host: partner-sandbox.predoc.ai
+  found_by:
+  - apis[]
+  types: []
+  serves:
+  - api
+  registrable_domain: predoc.ai
+  role: other
+  relation: own
+- host: predoc.statuspage.io
+  found_by:
+  - pointer
+  types:
+  - StatusPage
+  serves: []
+  registrable_domain: statuspage.io
+  role: status
+  relation: other-domain
+- host: www.predoc.ai
+  found_by:
+  - pointer
+  types:
+  - Website
+  - GettingStarted
+  - Blog
+  - Support
+  - TermsOfService
+  - PrivacyPolicy
+  - Compliance
+  serves: []
+  registrable_domain: predoc.ai
+  role: website
+  relation: own

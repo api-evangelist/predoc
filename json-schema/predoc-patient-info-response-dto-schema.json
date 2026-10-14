@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/predoc/main/json-schema/predoc-patient-info-response-dto-schema.json",
+  "title": "PatientInfoResponseDto",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/predoc-partner-api-openapi.yml#/components/schemas/PatientInfoResponseDto",
+  "type": "object",
+  "properties": {
+    "partnerPatientId": {
+      "type": "string",
+      "description": "Unique identifier for the patient.",
+      "format": "uuid"
+    },
+    "patientKey": {
+      "type": "string",
+      "description": "Yet another unique identifier for the patient."
+    },
+    "firstName": {
+      "type": "string",
+      "description": "First name of the patient."
+    },
+    "middleName": {
+      "type": "string",
+      "description": "Middle name of the patient."
+    },
+    "lastName": {
+      "type": "string",
+      "description": "Last name of the patient."
+    },
+    "genderName": {
+      "type": "string",
+      "description": "Gender of the patient."
+    },
+    "dateOfBirth": {
+      "type": "string",
+      "description": "Date of birth of the patient."
+    },
+    "phoneNumber": {
+      "type": "string",
+      "description": "Phone number of the patient, without spaces or dashes."
+    },
+    "addressLine1": {
+      "type": "string",
+      "description": "Address line 1 of the patient address."
+    },
+    "addressLine2": {
+      "type": "string",
+      "description": "Address line 2 of the patient address."
+    },
+    "city": {
+      "type": "string",
+      "description": "City of the patient address."
+    },
+    "state": {
+      "type": "string",
+      "description": "State of the patient address."
+    },
+    "postalCode": {
+      "type": "string",
+      "description": "Postal code of the patient address. 5 digits"
+    },
+    "primaryLanguage": {
+      "type": "string",
+      "description": "Primary language of the patient."
+    }
+  },
+  "required": [
+    "partnerPatientId",
+    "patientKey",
+    "firstName",
+    "middleName",
+    "lastName",
+    "genderName",
+    "dateOfBirth",
+    "phoneNumber",
+    "addressLine1",
+    "addressLine2",
+    "city",
+    "state",
+    "postalCode",
+    "primaryLanguage"
+  ]
+}

@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/predoc/main/json-schema/predoc-create-patient-v2-inp-dto-schema.json",
+  "title": "CreatePatientV2InpDto",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/predoc-partner-api-openapi.yml#/components/schemas/CreatePatientV2InpDto",
+  "type": "object",
+  "properties": {
+    "firstName": {
+      "type": "string",
+      "description": "First name of the patient.",
+      "minLength": 2,
+      "maxLength": 45
+    },
+    "middleInitial": {
+      "type": "string",
+      "description": "Middle initial of the patient."
+    },
+    "lastName": {
+      "type": "string",
+      "description": "Last name of the patient.",
+      "minLength": 2,
+      "maxLength": 60
+    },
+    "dateOfBirth": {
+      "type": "string",
+      "description": "Date of birth of the patient, in `YYYY-MM-DD` format."
+    },
+    "phoneCountryCode": {
+      "type": "string",
+      "deprecated": true,
+      "description": "Country code of the patient's phone number with a `+` at the beginning. Defaults to +1."
+    },
+    "phoneNumber": {
+      "type": "string",
+      "description": "Phone number of the patient, with no special characters (only digits).",
+      "minLength": 10,
+      "maxLength": 10
+    },
+    "email": {
+      "type": "string",
+      "description": "Email address of the patient."
+    },
+    "patientAddress": {
+      "description": "Physical address of the patient.",
+      "allOf": [
+        {
+          "$ref": "#/$defs/AddressInpDto"
+        }
+      ]
+    },
+    "patientGender": {
+      "type": "string",
+      "description": "Gender of the patient.",
+      "enum": [
+        "male",
+        "female",
+        "na",
+        "other"
+      ]
+    },
+    "allowDuplicatePatient": {
+      "type": "boolean",
+      "description": "Override the patient demographics check and create the patient regardless of whether a patient with the same PII exists."
+    }
+  },
+  "required": [
+    "firstName",
+    "lastName",
+    "dateOfBirth",
+    "phoneNumber",
+    "patientAddress",
+    "patientGender"
+  ],
+  "$defs": {
+    "AddressInpDto": {
+      "type": "object",
+      "properties": {
+        "addressLine1": {
+          "type": "string",
+          "description": "Street address line 1."
+        },
+        "addressLine2": {
+          "type": "string",
+          "description": "Street address line 2."
+        },
+        "city": {
+          "type": "string",
+          "description": "Name of the city."
+        },
+        "stateCode": {
+          "type": "string",
+          "description": "Two letter state code for the address."
+        },
+        "postalCode": {
+          "type": "string",
+          "description": "Postal code for the address - 5 digits."
+        },
+        "countryCode": {
+          "type": "string",
+          "description": "<strong>NOTE:</strong> This field is deprecated and will be removed in a future release.",
+          "default": "USA",
+          "deprecated": true
+        }
+      },
+      "required": [
+        "postalCode"
+      ]
+    }
+  }
+}

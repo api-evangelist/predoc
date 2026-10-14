@@ -1,0 +1,1475 @@
+{
+  "@context": {
+    "@vocab": "https://predoc.ai/schema#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "predoc": "https://predoc.ai/schema#",
+    "GetAccessTokenInput": "predoc:GetAccessTokenInput",
+    "client_id": {
+      "@id": "predoc:client_id",
+      "@type": "xsd:string"
+    },
+    "secret_key": {
+      "@id": "predoc:secret_key",
+      "@type": "xsd:string"
+    },
+    "GetAccessTokenResponse": "predoc:GetAccessTokenResponse",
+    "access_token": {
+      "@id": "predoc:access_token",
+      "@type": "xsd:string"
+    },
+    "AddressInpDto": "predoc:AddressInpDto",
+    "addressLine1": {
+      "@id": "predoc:addressLine1",
+      "@type": "xsd:string"
+    },
+    "addressLine2": {
+      "@id": "predoc:addressLine2",
+      "@type": "xsd:string"
+    },
+    "city": {
+      "@id": "predoc:city",
+      "@type": "xsd:string"
+    },
+    "stateCode": {
+      "@id": "predoc:stateCode",
+      "@type": "xsd:string"
+    },
+    "postalCode": {
+      "@id": "predoc:postalCode",
+      "@type": "xsd:string"
+    },
+    "countryCode": {
+      "@id": "predoc:countryCode",
+      "@type": "xsd:string"
+    },
+    "CreatePatientV2InpDto": "predoc:CreatePatientV2InpDto",
+    "firstName": {
+      "@id": "predoc:firstName",
+      "@type": "xsd:string"
+    },
+    "middleInitial": {
+      "@id": "predoc:middleInitial",
+      "@type": "xsd:string"
+    },
+    "lastName": {
+      "@id": "predoc:lastName",
+      "@type": "xsd:string"
+    },
+    "dateOfBirth": {
+      "@id": "predoc:dateOfBirth",
+      "@type": "xsd:string"
+    },
+    "phoneCountryCode": {
+      "@id": "predoc:phoneCountryCode",
+      "@type": "xsd:string"
+    },
+    "phoneNumber": {
+      "@id": "predoc:phoneNumber",
+      "@type": "xsd:string"
+    },
+    "email": {
+      "@id": "predoc:email",
+      "@type": "xsd:string"
+    },
+    "patientAddress": {
+      "@id": "predoc:patientAddress"
+    },
+    "patientGender": {
+      "@id": "predoc:patientGender",
+      "@type": "xsd:string"
+    },
+    "allowDuplicatePatient": {
+      "@id": "predoc:allowDuplicatePatient",
+      "@type": "xsd:boolean"
+    },
+    "CreatePatientRespDto": "predoc:CreatePatientRespDto",
+    "patientId": {
+      "@id": "predoc:patientId",
+      "@type": "xsd:string"
+    },
+    "PatientInfoResponseDto": "predoc:PatientInfoResponseDto",
+    "partnerPatientId": {
+      "@id": "predoc:partnerPatientId",
+      "@type": "xsd:string"
+    },
+    "patientKey": {
+      "@id": "predoc:patientKey",
+      "@type": "xsd:string"
+    },
+    "middleName": {
+      "@id": "predoc:middleName",
+      "@type": "xsd:string"
+    },
+    "genderName": {
+      "@id": "predoc:genderName",
+      "@type": "xsd:string"
+    },
+    "state": {
+      "@id": "predoc:state",
+      "@type": "xsd:string"
+    },
+    "primaryLanguage": {
+      "@id": "predoc:primaryLanguage",
+      "@type": "xsd:string"
+    },
+    "FacesheetRequestRespDto": "predoc:FacesheetRequestRespDto",
+    "id": {
+      "@id": "predoc:id",
+      "@type": "xsd:string"
+    },
+    "status": {
+      "@id": "predoc:status",
+      "@type": "xsd:string"
+    },
+    "name": {
+      "@id": "predoc:name",
+      "@type": "xsd:string"
+    },
+    "submittedAt": {
+      "@id": "predoc:submittedAt",
+      "@type": "xsd:dateTime"
+    },
+    "HieRequestRespDto": "predoc:HieRequestRespDto",
+    "alternativeZipCodes": {
+      "@id": "predoc:alternativeZipCodes",
+      "@container": "@list"
+    },
+    "PreviousProviderResponseDto": "predoc:PreviousProviderResponseDto",
+    "retrievalId": {
+      "@id": "predoc:retrievalId",
+      "@type": "xsd:string"
+    },
+    "currentOrganizationName": {
+      "@id": "predoc:currentOrganizationName",
+      "@type": "xsd:string"
+    },
+    "providerName": {
+      "@id": "predoc:providerName",
+      "@type": "xsd:string"
+    },
+    "practiceName": {
+      "@id": "predoc:practiceName",
+      "@type": "xsd:string"
+    },
+    "officeStreetAddress1": {
+      "@id": "predoc:officeStreetAddress1",
+      "@type": "xsd:string"
+    },
+    "officeStreetAddress2": {
+      "@id": "predoc:officeStreetAddress2",
+      "@type": "xsd:string"
+    },
+    "officeCity": {
+      "@id": "predoc:officeCity",
+      "@type": "xsd:string"
+    },
+    "officeState": {
+      "@id": "predoc:officeState",
+      "@type": "xsd:string"
+    },
+    "officeZip": {
+      "@id": "predoc:officeZip",
+      "@type": "xsd:string"
+    },
+    "officePhoneNumber": {
+      "@id": "predoc:officePhoneNumber",
+      "@type": "xsd:string"
+    },
+    "serviceStartDate": {
+      "@id": "predoc:serviceStartDate",
+      "@type": "xsd:dateTime"
+    },
+    "serviceEndDate": {
+      "@id": "predoc:serviceEndDate",
+      "@type": "xsd:dateTime"
+    },
+    "medicalRecordType": {
+      "@id": "predoc:medicalRecordType",
+      "@type": "xsd:string"
+    },
+    "completeMedicalRecord": {
+      "@id": "predoc:completeMedicalRecord",
+      "@type": "xsd:boolean"
+    },
+    "PatientCrrRequestResponseDto": "predoc:PatientCrrRequestResponseDto",
+    "crrId": {
+      "@id": "predoc:crrId",
+      "@type": "xsd:string"
+    },
+    "createdAt": {
+      "@id": "predoc:createdAt",
+      "@type": "xsd:dateTime"
+    },
+    "creatorFirstName": {
+      "@id": "predoc:creatorFirstName",
+      "@type": "xsd:string"
+    },
+    "creatorLastName": {
+      "@id": "predoc:creatorLastName",
+      "@type": "xsd:string"
+    },
+    "updatedAt": {
+      "@id": "predoc:updatedAt",
+      "@type": "xsd:dateTime"
+    },
+    "requestingProviderName": {
+      "@id": "predoc:requestingProviderName",
+      "@type": "xsd:string"
+    },
+    "requestReason": {
+      "@id": "predoc:requestReason",
+      "@type": "xsd:string"
+    },
+    "referenceId": {
+      "@id": "predoc:referenceId",
+      "@type": "xsd:string"
+    },
+    "cumulativeRequestStatus": {
+      "@id": "predoc:cumulativeRequestStatus"
+    },
+    "requestedProviders": {
+      "@id": "predoc:requestedProviders",
+      "@container": "@list"
+    },
+    "hieRequests": {
+      "@id": "predoc:hieRequests",
+      "@container": "@list"
+    },
+    "medicationsRequests": {
+      "@id": "predoc:medicationsRequests",
+      "@container": "@list"
+    },
+    "appointmentDate": {
+      "@id": "predoc:appointmentDate",
+      "@type": "xsd:dateTime"
+    },
+    "facesheetRequests": {
+      "@id": "predoc:facesheetRequests",
+      "@container": "@list"
+    },
+    "PatientRequestsResponseDto": "predoc:PatientRequestsResponseDto",
+    "crrRequests": {
+      "@id": "predoc:crrRequests",
+      "@container": "@list"
+    },
+    "standaloneFacesheetRequests": {
+      "@id": "predoc:standaloneFacesheetRequests",
+      "@container": "@list"
+    },
+    "PatientSearchBodyInput": "predoc:PatientSearchBodyInput",
+    "UpdatePatientInformationInpDto": "predoc:UpdatePatientInformationInpDto",
+    "UpdatePatientInformationRespDto": "predoc:UpdatePatientInformationRespDto",
+    "result": {
+      "@id": "predoc:result",
+      "@type": "xsd:string"
+    },
+    "message": {
+      "@id": "predoc:message",
+      "@type": "xsd:string"
+    },
+    "AddressPreviousProviderInpDto": "predoc:AddressPreviousProviderInpDto",
+    "RequestDatesOfServiceInpDto": "predoc:RequestDatesOfServiceInpDto",
+    "PreviousProviderInpDto": "predoc:PreviousProviderInpDto",
+    "orgName": {
+      "@id": "predoc:orgName",
+      "@type": "xsd:string"
+    },
+    "providerFirstName": {
+      "@id": "predoc:providerFirstName",
+      "@type": "xsd:string"
+    },
+    "providerLastName": {
+      "@id": "predoc:providerLastName",
+      "@type": "xsd:string"
+    },
+    "orgAddress": {
+      "@id": "predoc:orgAddress"
+    },
+    "orgPhoneCountryCode": {
+      "@id": "predoc:orgPhoneCountryCode",
+      "@type": "xsd:string"
+    },
+    "orgPhoneNumber": {
+      "@id": "predoc:orgPhoneNumber",
+      "@type": "xsd:string"
+    },
+    "orgFaxNumber": {
+      "@id": "predoc:orgFaxNumber",
+      "@type": "xsd:string"
+    },
+    "datesOfService": {
+      "@id": "predoc:datesOfService"
+    },
+    "specificMedicalRecordRequested": {
+      "@id": "predoc:specificMedicalRecordRequested",
+      "@type": "xsd:string"
+    },
+    "EncodedFileInpDto": "predoc:EncodedFileInpDto",
+    "encodedFile": {
+      "@id": "predoc:encodedFile",
+      "@type": "xsd:string"
+    },
+    "fileExtension": {
+      "@id": "predoc:fileExtension",
+      "@type": "xsd:string"
+    },
+    "dataType": {
+      "@id": "predoc:dataType",
+      "@type": "xsd:string"
+    },
+    "CreateCrrInpDto": "predoc:CreateCrrInpDto",
+    "releaseToOrgName": {
+      "@id": "predoc:releaseToOrgName",
+      "@type": "xsd:string"
+    },
+    "releaseToProviderName": {
+      "@id": "predoc:releaseToProviderName",
+      "@type": "xsd:string"
+    },
+    "previousProviders": {
+      "@id": "predoc:previousProviders",
+      "@container": "@list"
+    },
+    "doNotKnowPreviousProvider": {
+      "@id": "predoc:doNotKnowPreviousProvider",
+      "@type": "xsd:boolean"
+    },
+    "reasonForRequest": {
+      "@id": "predoc:reasonForRequest",
+      "@type": "xsd:integer"
+    },
+    "futureAppointmentDate": {
+      "@id": "predoc:futureAppointmentDate",
+      "@type": "xsd:string"
+    },
+    "requestingProviderEmail": {
+      "@id": "predoc:requestingProviderEmail",
+      "@type": "xsd:string"
+    },
+    "patientAuthFile": {
+      "@id": "predoc:patientAuthFile"
+    },
+    "sendHieRequest": {
+      "@id": "predoc:sendHieRequest",
+      "@type": "xsd:boolean"
+    },
+    "sendMedicationsRequest": {
+      "@id": "predoc:sendMedicationsRequest",
+      "@type": "xsd:boolean"
+    },
+    "facesheetConfigId": {
+      "@id": "predoc:facesheetConfigId",
+      "@type": "xsd:string"
+    },
+    "facesheetConfigIds": {
+      "@id": "predoc:facesheetConfigIds",
+      "@container": "@list"
+    },
+    "PreviousProviderRetrievalRespDto": "predoc:PreviousProviderRetrievalRespDto",
+    "RecordRequestRespDto": "predoc:RecordRequestRespDto",
+    "requestId": {
+      "@id": "predoc:requestId",
+      "@type": "xsd:string"
+    },
+    "previousProviderRetrievals": {
+      "@id": "predoc:previousProviderRetrievals",
+      "@container": "@list"
+    },
+    "RetrievalCloseRespDto": "predoc:RetrievalCloseRespDto",
+    "accepted": {
+      "@id": "predoc:accepted",
+      "@type": "xsd:boolean"
+    },
+    "CreatePatientWithCrrV2InpDto": "predoc:CreatePatientWithCrrV2InpDto",
+    "RetrievalStatusRespDto": "predoc:RetrievalStatusRespDto",
+    "statusGroup": {
+      "@id": "predoc:statusGroup",
+      "@type": "xsd:string"
+    },
+    "canClose": {
+      "@id": "predoc:canClose",
+      "@type": "xsd:boolean"
+    },
+    "PatientDataRespDto": "predoc:PatientDataRespDto",
+    "address": {
+      "@id": "predoc:address"
+    },
+    "cumulativePatientStatus": {
+      "@id": "predoc:cumulativePatientStatus"
+    },
+    "PatientCrrRequestShortRespDto": "predoc:PatientCrrRequestShortRespDto",
+    "OrganizationPatientStatusRespDto": "predoc:OrganizationPatientStatusRespDto",
+    "patient": {
+      "@id": "predoc:patient"
+    },
+    "requests": {
+      "@id": "predoc:requests",
+      "@container": "@list"
+    },
+    "PaginationRespDto": "predoc:PaginationRespDto",
+    "offset": {
+      "@id": "predoc:offset",
+      "@type": "xsd:decimal"
+    },
+    "limit": {
+      "@id": "predoc:limit",
+      "@type": "xsd:decimal"
+    },
+    "total": {
+      "@id": "predoc:total",
+      "@type": "xsd:decimal"
+    },
+    "RecordRequestListRespDto": "predoc:RecordRequestListRespDto",
+    "recordRequests": {
+      "@id": "predoc:recordRequests",
+      "@container": "@list"
+    },
+    "pagination": {
+      "@id": "predoc:pagination"
+    },
+    "FacesheetConfigRespDto": "predoc:FacesheetConfigRespDto",
+    "facesheetId": {
+      "@id": "predoc:facesheetId",
+      "@type": "xsd:string"
+    },
+    "facesheetName": {
+      "@id": "predoc:facesheetName",
+      "@type": "xsd:string"
+    },
+    "FacesheetConfigListRespDto": "predoc:FacesheetConfigListRespDto",
+    "facesheetConfigs": {
+      "@id": "predoc:facesheetConfigs",
+      "@container": "@list"
+    },
+    "PreviousProviderUpdInpDto": "predoc:PreviousProviderUpdInpDto",
+    "ModifyCrrInpDto": "predoc:ModifyCrrInpDto",
+    "UpdateRequestRespDto": "predoc:UpdateRequestRespDto",
+    "RecordUploadPatientData": "predoc:RecordUploadPatientData",
+    "phone": {
+      "@id": "predoc:phone",
+      "@type": "xsd:string"
+    },
+    "address1": {
+      "@id": "predoc:address1",
+      "@type": "xsd:string"
+    },
+    "address2": {
+      "@id": "predoc:address2",
+      "@type": "xsd:string"
+    },
+    "RecordUploadV2InpDto": "predoc:RecordUploadV2InpDto",
+    "patientData": {
+      "@id": "predoc:patientData"
+    },
+    "fileName": {
+      "@id": "predoc:fileName",
+      "@type": "xsd:string"
+    },
+    "notificationEmails": {
+      "@id": "predoc:notificationEmails",
+      "@container": "@list"
+    },
+    "RecordUploadV2RespDto": "predoc:RecordUploadV2RespDto",
+    "recordUploadId": {
+      "@id": "predoc:recordUploadId",
+      "@type": "xsd:string"
+    },
+    "AnonymousRecordUploadRespDto": "predoc:AnonymousRecordUploadRespDto",
+    "RecordProviderInfoDto": "predoc:RecordProviderInfoDto",
+    "designations": {
+      "@id": "predoc:designations",
+      "@container": "@list"
+    },
+    "providerFacilityType": {
+      "@id": "predoc:providerFacilityType",
+      "@type": "xsd:string"
+    },
+    "facilityName": {
+      "@id": "predoc:facilityName",
+      "@type": "xsd:string"
+    },
+    "inferredNpi": {
+      "@id": "predoc:inferredNpi",
+      "@type": "xsd:string"
+    },
+    "RecordUploadPatientDocumentDto": "predoc:RecordUploadPatientDocumentDto",
+    "documentId": {
+      "@id": "predoc:documentId",
+      "@type": "xsd:string"
+    },
+    "documentType": {
+      "@id": "predoc:documentType",
+      "@type": "xsd:string"
+    },
+    "downloadUrl": {
+      "@id": "predoc:downloadUrl",
+      "@type": "@id"
+    },
+    "indexedRecordSpliceType": {
+      "@id": "predoc:indexedRecordSpliceType",
+      "@type": "xsd:string"
+    },
+    "AnonymousRecordUploadStatusRespDto": "predoc:AnonymousRecordUploadStatusRespDto",
+    "recipientProviders": {
+      "@id": "predoc:recipientProviders",
+      "@container": "@list"
+    },
+    "sendingProviders": {
+      "@id": "predoc:sendingProviders",
+      "@container": "@list"
+    },
+    "originalDocumentDownloadUrl": {
+      "@id": "predoc:originalDocumentDownloadUrl",
+      "@type": "@id"
+    },
+    "documents": {
+      "@id": "predoc:documents",
+      "@container": "@list"
+    },
+    "DocumentUrlDto": "predoc:DocumentUrlDto",
+    "url": {
+      "@id": "predoc:url",
+      "@type": "@id"
+    },
+    "DocumentDto": "predoc:DocumentDto",
+    "title": {
+      "@id": "predoc:title",
+      "@type": "xsd:string"
+    },
+    "comments": {
+      "@id": "predoc:comments",
+      "@type": "xsd:string"
+    },
+    "date": {
+      "@id": "predoc:date",
+      "@type": "xsd:string"
+    },
+    "images": {
+      "@id": "predoc:images",
+      "@container": "@list"
+    },
+    "DrugAllergyDto": "predoc:DrugAllergyDto",
+    "drugName": {
+      "@id": "predoc:drugName",
+      "@type": "xsd:string"
+    },
+    "alternateName": {
+      "@id": "predoc:alternateName",
+      "@type": "xsd:string"
+    },
+    "reaction": {
+      "@id": "predoc:reaction",
+      "@type": "xsd:string"
+    },
+    "ImagingTypeDto": "predoc:ImagingTypeDto",
+    "displayName": {
+      "@id": "predoc:displayName",
+      "@type": "xsd:string"
+    },
+    "BodyPartDto": "predoc:BodyPartDto",
+    "ImagingResultDto": "predoc:ImagingResultDto",
+    "type": {
+      "@id": "predoc:type"
+    },
+    "bodyPart": {
+      "@id": "predoc:bodyPart"
+    },
+    "alternateBodyPartName": {
+      "@id": "predoc:alternateBodyPartName",
+      "@type": "xsd:string"
+    },
+    "LabTestDocumentUrlDto": "predoc:LabTestDocumentUrlDto",
+    "SpecialtyTypeDto": "predoc:SpecialtyTypeDto",
+    "LabTestResultDto": "predoc:LabTestResultDto",
+    "labTestId": {
+      "@id": "predoc:labTestId",
+      "@type": "xsd:string"
+    },
+    "specialty": {
+      "@id": "predoc:specialty"
+    },
+    "chemistryName": {
+      "@id": "predoc:chemistryName",
+      "@type": "xsd:string"
+    },
+    "value": {
+      "@id": "predoc:value",
+      "@type": "xsd:string"
+    },
+    "normalRange": {
+      "@id": "predoc:normalRange",
+      "@type": "xsd:string"
+    },
+    "isTrendable": {
+      "@id": "predoc:isTrendable",
+      "@type": "xsd:boolean"
+    },
+    "LabTestDocumentDto": "predoc:LabTestDocumentDto",
+    "results": {
+      "@id": "predoc:results",
+      "@container": "@list"
+    },
+    "OtherRecordTypeDto": "predoc:OtherRecordTypeDto",
+    "OtherRecordDto": "predoc:OtherRecordDto",
+    "ProcedureNoteDto": "predoc:ProcedureNoteDto",
+    "proceduralist": {
+      "@id": "predoc:proceduralist",
+      "@type": "xsd:string"
+    },
+    "ProviderTypeDto": "predoc:ProviderTypeDto",
+    "ProviderFacilityNoteDto": "predoc:ProviderFacilityNoteDto",
+    "providerType": {
+      "@id": "predoc:providerType"
+    },
+    "alternateProviderTypeName": {
+      "@id": "predoc:alternateProviderTypeName",
+      "@type": "xsd:string"
+    },
+    "VaccineTypeDto": "predoc:VaccineTypeDto",
+    "VaccineRecordDto": "predoc:VaccineRecordDto",
+    "VaccineDocumentUrlDto": "predoc:VaccineDocumentUrlDto",
+    "VaccineDocumentVaccineDto": "predoc:VaccineDocumentVaccineDto",
+    "VaccineDocumentDto": "predoc:VaccineDocumentDto",
+    "vaccines": {
+      "@id": "predoc:vaccines",
+      "@container": "@list"
+    },
+    "FacesheetDto": "predoc:FacesheetDto",
+    "HieDocDto": "predoc:HieDocDto",
+    "image": {
+      "@id": "predoc:image"
+    },
+    "MedicationSourceDto": "predoc:MedicationSourceDto",
+    "qualifier": {
+      "@id": "predoc:qualifier",
+      "@type": "xsd:string"
+    },
+    "description": {
+      "@id": "predoc:description",
+      "@type": "xsd:string"
+    },
+    "MedicationDto": "predoc:MedicationDto",
+    "medicationId": {
+      "@id": "predoc:medicationId",
+      "@type": "xsd:string"
+    },
+    "medicationTitle": {
+      "@id": "predoc:medicationTitle",
+      "@type": "xsd:string"
+    },
+    "dosageValue": {
+      "@id": "predoc:dosageValue",
+      "@type": "xsd:string"
+    },
+    "dosageFormRaw": {
+      "@id": "predoc:dosageFormRaw",
+      "@type": "xsd:string"
+    },
+    "dosageForm": {
+      "@id": "predoc:dosageForm",
+      "@type": "xsd:string"
+    },
+    "dosageUnitRaw": {
+      "@id": "predoc:dosageUnitRaw",
+      "@type": "xsd:string"
+    },
+    "dosageUnit": {
+      "@id": "predoc:dosageUnit",
+      "@type": "xsd:string"
+    },
+    "diagnosis": {
+      "@id": "predoc:diagnosis",
+      "@type": "xsd:string"
+    },
+    "prescriberFirstName": {
+      "@id": "predoc:prescriberFirstName",
+      "@type": "xsd:string"
+    },
+    "prescriberLastName": {
+      "@id": "predoc:prescriberLastName",
+      "@type": "xsd:string"
+    },
+    "prescriberPracticeName": {
+      "@id": "predoc:prescriberPracticeName",
+      "@type": "xsd:string"
+    },
+    "prescriberNpi": {
+      "@id": "predoc:prescriberNpi",
+      "@type": "xsd:string"
+    },
+    "writtenDate": {
+      "@id": "predoc:writtenDate",
+      "@type": "xsd:dateTime"
+    },
+    "lastFillDate": {
+      "@id": "predoc:lastFillDate",
+      "@type": "xsd:dateTime"
+    },
+    "quantityValue": {
+      "@id": "predoc:quantityValue",
+      "@type": "xsd:string"
+    },
+    "quantityUnitRaw": {
+      "@id": "predoc:quantityUnitRaw",
+      "@type": "xsd:string"
+    },
+    "quantityUnit": {
+      "@id": "predoc:quantityUnit",
+      "@type": "xsd:string"
+    },
+    "daysSupply": {
+      "@id": "predoc:daysSupply",
+      "@type": "xsd:decimal"
+    },
+    "refillsRemaining": {
+      "@id": "predoc:refillsRemaining",
+      "@type": "xsd:decimal"
+    },
+    "substitutions": {
+      "@id": "predoc:substitutions",
+      "@type": "xsd:decimal"
+    },
+    "prescriberOrderNumber": {
+      "@id": "predoc:prescriberOrderNumber",
+      "@type": "xsd:string"
+    },
+    "priorAuthNumber": {
+      "@id": "predoc:priorAuthNumber",
+      "@type": "xsd:string"
+    },
+    "diagnosisQualifier": {
+      "@id": "predoc:diagnosisQualifier",
+      "@type": "xsd:string"
+    },
+    "sources": {
+      "@id": "predoc:sources",
+      "@container": "@list"
+    },
+    "PatientDocumentSearchInpDto": "predoc:PatientDocumentSearchInpDto",
+    "categories": {
+      "@id": "predoc:categories",
+      "@container": "@list"
+    },
+    "fromDate": {
+      "@id": "predoc:fromDate",
+      "@type": "xsd:string"
+    },
+    "toDate": {
+      "@id": "predoc:toDate",
+      "@type": "xsd:string"
+    },
+    "PatientDocumentRespDto": "predoc:PatientDocumentRespDto",
+    "drugAllergies": {
+      "@id": "predoc:drugAllergies",
+      "@container": "@list"
+    },
+    "imagingResults": {
+      "@id": "predoc:imagingResults",
+      "@container": "@list"
+    },
+    "labTests": {
+      "@id": "predoc:labTests",
+      "@container": "@list"
+    },
+    "otherRecords": {
+      "@id": "predoc:otherRecords",
+      "@container": "@list"
+    },
+    "procedureNotes": {
+      "@id": "predoc:procedureNotes",
+      "@container": "@list"
+    },
+    "providerFacilityNotes": {
+      "@id": "predoc:providerFacilityNotes",
+      "@container": "@list"
+    },
+    "vaccineRecords": {
+      "@id": "predoc:vaccineRecords",
+      "@container": "@list"
+    },
+    "vaccineDocuments": {
+      "@id": "predoc:vaccineDocuments",
+      "@container": "@list"
+    },
+    "facesheets": {
+      "@id": "predoc:facesheets",
+      "@container": "@list"
+    },
+    "hieDocs": {
+      "@id": "predoc:hieDocs",
+      "@container": "@list"
+    },
+    "medications": {
+      "@id": "predoc:medications",
+      "@container": "@list"
+    },
+    "PatientDocumentSearchRespDto": "predoc:PatientDocumentSearchRespDto",
+    "PatientAvailableChemRespDto": "predoc:PatientAvailableChemRespDto",
+    "availableChemistries": {
+      "@id": "predoc:availableChemistries",
+      "@container": "@list"
+    },
+    "AdditionalRecordDto": "predoc:AdditionalRecordDto",
+    "PatientAdditionalRecordsDto": "predoc:PatientAdditionalRecordsDto",
+    "additionalRecords": {
+      "@id": "predoc:additionalRecords",
+      "@container": "@list"
+    },
+    "PatientDocumentsDto": "predoc:PatientDocumentsDto",
+    "PatientDrugAllergiesDto": "predoc:PatientDrugAllergiesDto",
+    "PatientFacesheetsDto": "predoc:PatientFacesheetsDto",
+    "FacesheetOutputSourceDto": "predoc:FacesheetOutputSourceDto",
+    "source": {
+      "@id": "predoc:source",
+      "@type": "xsd:string"
+    },
+    "retrievalDate": {
+      "@id": "predoc:retrievalDate",
+      "@type": "xsd:dateTime"
+    },
+    "curatedDataId": {
+      "@id": "predoc:curatedDataId",
+      "@type": "xsd:string"
+    },
+    "classificationGroupType": {
+      "@id": "predoc:classificationGroupType",
+      "@type": "xsd:string"
+    },
+    "FacesheetOutputReferenceDto": "predoc:FacesheetOutputReferenceDto",
+    "FacesheetOutputChildRowDto": "predoc:FacesheetOutputChildRowDto",
+    "question": {
+      "@id": "predoc:question",
+      "@type": "xsd:string"
+    },
+    "answer": {
+      "@id": "predoc:answer",
+      "@type": "xsd:string"
+    },
+    "rationale": {
+      "@id": "predoc:rationale",
+      "@type": "xsd:string"
+    },
+    "references": {
+      "@id": "predoc:references",
+      "@container": "@list"
+    },
+    "FacesheetOutputRowDto": "predoc:FacesheetOutputRowDto",
+    "children": {
+      "@id": "predoc:children",
+      "@container": "@list"
+    },
+    "FacesheetOutputDto": "predoc:FacesheetOutputDto",
+    "questions": {
+      "@id": "predoc:questions",
+      "@container": "@list"
+    },
+    "PatientFacesheetOutputDto": "predoc:PatientFacesheetOutputDto",
+    "facesheet": {
+      "@id": "predoc:facesheet",
+      "@type": "@id"
+    },
+    "PatientHieDocsDto": "predoc:PatientHieDocsDto",
+    "PatientImagingResultsDto": "predoc:PatientImagingResultsDto",
+    "PatientMedicationsDto": "predoc:PatientMedicationsDto",
+    "PatientLabResultsSearchBodyInput": "predoc:PatientLabResultsSearchBodyInput",
+    "searchChemistries": {
+      "@id": "predoc:searchChemistries",
+      "@container": "@list"
+    },
+    "PatientLabResultRespDto": "predoc:PatientLabResultRespDto",
+    "resultId": {
+      "@id": "predoc:resultId",
+      "@type": "xsd:string"
+    },
+    "resultName": {
+      "@id": "predoc:resultName",
+      "@type": "xsd:string"
+    },
+    "resultValue": {
+      "@id": "predoc:resultValue",
+      "@type": "xsd:string"
+    },
+    "memrRetrievedDate": {
+      "@id": "predoc:memrRetrievedDate",
+      "@type": "xsd:string"
+    },
+    "resultDateOfStudy": {
+      "@id": "predoc:resultDateOfStudy",
+      "@type": "xsd:string"
+    },
+    "resultStudyName": {
+      "@id": "predoc:resultStudyName",
+      "@type": "xsd:string"
+    },
+    "resultDocumentType": {
+      "@id": "predoc:resultDocumentType",
+      "@type": "xsd:string"
+    },
+    "PatientLabResultSearchRespDto": "predoc:PatientLabResultSearchRespDto",
+    "labResults": {
+      "@id": "predoc:labResults",
+      "@container": "@list"
+    },
+    "PatientLabTestResultsDto": "predoc:PatientLabTestResultsDto",
+    "PatientOtherRecordsDto": "predoc:PatientOtherRecordsDto",
+    "PatientProcedureNotesDto": "predoc:PatientProcedureNotesDto",
+    "PatientProviderFacilityNotesDto": "predoc:PatientProviderFacilityNotesDto",
+    "PatientVaccineRecordsDto": "predoc:PatientVaccineRecordsDto",
+    "PatientVaccineDocumentsDto": "predoc:PatientVaccineDocumentsDto",
+    "PatientSummaryResDto": "predoc:PatientSummaryResDto",
+    "patientSummaryRequestId": {
+      "@id": "predoc:patientSummaryRequestId",
+      "@type": "xsd:string"
+    },
+    "patientSummaryRequestStatus": {
+      "@id": "predoc:patientSummaryRequestStatus",
+      "@type": "xsd:string"
+    },
+    "patientSummaryRequestStatusMessage": {
+      "@id": "predoc:patientSummaryRequestStatusMessage",
+      "@type": "xsd:string"
+    },
+    "documentLink": {
+      "@id": "predoc:documentLink",
+      "@type": "@id"
+    },
+    "RequestClinicalSummaryInpDto": "predoc:RequestClinicalSummaryInpDto",
+    "WebhookEventType": "predoc:WebhookEventType",
+    "WebhookCustomHeaderRespDto": "predoc:WebhookCustomHeaderRespDto",
+    "key": {
+      "@id": "predoc:key",
+      "@type": "xsd:string"
+    },
+    "WebhookCustomHeaderDto": "predoc:WebhookCustomHeaderDto",
+    "WebhookConfigurationCreateInpDto": "predoc:WebhookConfigurationCreateInpDto",
+    "eventType": {
+      "@id": "predoc:eventType"
+    },
+    "serviceName": {
+      "@id": "predoc:serviceName",
+      "@type": "xsd:string"
+    },
+    "notificationEmail": {
+      "@id": "predoc:notificationEmail",
+      "@type": "xsd:string"
+    },
+    "webhookUri": {
+      "@id": "predoc:webhookUri",
+      "@type": "xsd:string"
+    },
+    "customHeaders": {
+      "@id": "predoc:customHeaders",
+      "@container": "@list"
+    },
+    "CreateWebhookConfigRespDto": "predoc:CreateWebhookConfigRespDto",
+    "configurationId": {
+      "@id": "predoc:configurationId",
+      "@type": "xsd:string"
+    },
+    "WebhookConfigRespDto": "predoc:WebhookConfigRespDto",
+    "isActive": {
+      "@id": "predoc:isActive",
+      "@type": "xsd:boolean"
+    },
+    "WebhookConfigurationUpdateInpDto": "predoc:WebhookConfigurationUpdateInpDto",
+    "ClinicalDataSourceDto": "predoc:ClinicalDataSourceDto",
+    "documentUrl": {
+      "@id": "predoc:documentUrl",
+      "@type": "xsd:string"
+    },
+    "AllergyItemDto": "predoc:AllergyItemDto",
+    "allergyId": {
+      "@id": "predoc:allergyId",
+      "@type": "xsd:string"
+    },
+    "practitionerRoleId": {
+      "@id": "predoc:practitionerRoleId",
+      "@type": "xsd:string"
+    },
+    "allergyCodes": {
+      "@id": "predoc:allergyCodes",
+      "@container": "@list"
+    },
+    "recordedDate": {
+      "@id": "predoc:recordedDate",
+      "@type": "xsd:string"
+    },
+    "onsetStartDate": {
+      "@id": "predoc:onsetStartDate",
+      "@type": "xsd:string"
+    },
+    "onsetEndDate": {
+      "@id": "predoc:onsetEndDate",
+      "@type": "xsd:string"
+    },
+    "reactionManifestation": {
+      "@id": "predoc:reactionManifestation",
+      "@type": "xsd:string"
+    },
+    "reactionManifestationCodes": {
+      "@id": "predoc:reactionManifestationCodes",
+      "@container": "@list"
+    },
+    "DemographicItemDto": "predoc:DemographicItemDto",
+    "givenName": {
+      "@id": "predoc:givenName",
+      "@type": "xsd:string"
+    },
+    "familyName": {
+      "@id": "predoc:familyName",
+      "@type": "xsd:string"
+    },
+    "gender": {
+      "@id": "predoc:gender",
+      "@type": "xsd:string"
+    },
+    "maritalStatus": {
+      "@id": "predoc:maritalStatus",
+      "@type": "xsd:string"
+    },
+    "race": {
+      "@id": "predoc:race",
+      "@container": "@list"
+    },
+    "language": {
+      "@id": "predoc:language",
+      "@type": "xsd:string"
+    },
+    "telephones": {
+      "@id": "predoc:telephones",
+      "@container": "@list"
+    },
+    "emails": {
+      "@id": "predoc:emails",
+      "@container": "@list"
+    },
+    "county": {
+      "@id": "predoc:county",
+      "@type": "xsd:string"
+    },
+    "patientCountry": {
+      "@id": "predoc:patientCountry",
+      "@type": "xsd:string"
+    },
+    "socialNumber": {
+      "@id": "predoc:socialNumber",
+      "@type": "xsd:string"
+    },
+    "EncounterTypeCodeDto": "predoc:EncounterTypeCodeDto",
+    "code": {
+      "@id": "predoc:code",
+      "@type": "xsd:string"
+    },
+    "codeSystem": {
+      "@id": "predoc:codeSystem",
+      "@type": "xsd:string"
+    },
+    "display": {
+      "@id": "predoc:display",
+      "@type": "xsd:string"
+    },
+    "EncounterConditionDto": "predoc:EncounterConditionDto",
+    "conditionName": {
+      "@id": "predoc:conditionName",
+      "@type": "xsd:string"
+    },
+    "conditionOnsetDate": {
+      "@id": "predoc:conditionOnsetDate",
+      "@type": "xsd:string"
+    },
+    "conditionRecordedDate": {
+      "@id": "predoc:conditionRecordedDate",
+      "@type": "xsd:string"
+    },
+    "conditionClinicalStatus": {
+      "@id": "predoc:conditionClinicalStatus",
+      "@type": "xsd:string"
+    },
+    "conditionCategoryCodeName": {
+      "@id": "predoc:conditionCategoryCodeName",
+      "@type": "xsd:string"
+    },
+    "conditionText": {
+      "@id": "predoc:conditionText",
+      "@type": "xsd:string"
+    },
+    "EncounterLocationDto": "predoc:EncounterLocationDto",
+    "locationType": {
+      "@id": "predoc:locationType",
+      "@type": "xsd:string"
+    },
+    "addressUse": {
+      "@id": "predoc:addressUse",
+      "@type": "xsd:string"
+    },
+    "EncounterPractitionerDto": "predoc:EncounterPractitionerDto",
+    "addressStreet": {
+      "@id": "predoc:addressStreet",
+      "@type": "xsd:string"
+    },
+    "addressCity": {
+      "@id": "predoc:addressCity",
+      "@type": "xsd:string"
+    },
+    "addressState": {
+      "@id": "predoc:addressState",
+      "@type": "xsd:string"
+    },
+    "roleSpecialty": {
+      "@id": "predoc:roleSpecialty",
+      "@type": "xsd:string"
+    },
+    "role": {
+      "@id": "predoc:role",
+      "@type": "xsd:string"
+    },
+    "telecoms": {
+      "@id": "predoc:telecoms",
+      "@container": "@list"
+    },
+    "EncounterDocumentMetadataDto": "predoc:EncounterDocumentMetadataDto",
+    "ctype": {
+      "@id": "predoc:ctype",
+      "@type": "xsd:string"
+    },
+    "bucket": {
+      "@id": "predoc:bucket",
+      "@type": "xsd:string"
+    },
+    "docId": {
+      "@id": "predoc:docId",
+      "@type": "xsd:string"
+    },
+    "checksum": {
+      "@id": "predoc:checksum",
+      "@type": "xsd:string"
+    },
+    "encoding": {
+      "@id": "predoc:encoding",
+      "@type": "xsd:string"
+    },
+    "signedUrl": {
+      "@id": "predoc:signedUrl",
+      "@type": "xsd:string"
+    },
+    "EncounterDocumentReferenceDto": "predoc:EncounterDocumentReferenceDto",
+    "referenceType": {
+      "@id": "predoc:referenceType",
+      "@type": "xsd:string"
+    },
+    "contentType": {
+      "@id": "predoc:contentType",
+      "@type": "xsd:string"
+    },
+    "documentMetadata": {
+      "@id": "predoc:documentMetadata"
+    },
+    "EncounterItemDto": "predoc:EncounterItemDto",
+    "encounterId": {
+      "@id": "predoc:encounterId",
+      "@type": "xsd:string"
+    },
+    "startTime": {
+      "@id": "predoc:startTime",
+      "@type": "xsd:string"
+    },
+    "endTime": {
+      "@id": "predoc:endTime",
+      "@type": "xsd:string"
+    },
+    "encounterTypeCodes": {
+      "@id": "predoc:encounterTypeCodes",
+      "@container": "@list"
+    },
+    "typeName": {
+      "@id": "predoc:typeName",
+      "@type": "xsd:string"
+    },
+    "hospitalizationDischargeDisposition": {
+      "@id": "predoc:hospitalizationDischargeDisposition",
+      "@type": "xsd:string"
+    },
+    "conditionIdReferences": {
+      "@id": "predoc:conditionIdReferences",
+      "@container": "@list"
+    },
+    "locationIdReferences": {
+      "@id": "predoc:locationIdReferences",
+      "@container": "@list"
+    },
+    "practitionerRoleIdReferences": {
+      "@id": "predoc:practitionerRoleIdReferences",
+      "@container": "@list"
+    },
+    "encounterText": {
+      "@id": "predoc:encounterText",
+      "@type": "xsd:string"
+    },
+    "conditions": {
+      "@id": "predoc:conditions",
+      "@container": "@list"
+    },
+    "locations": {
+      "@id": "predoc:locations",
+      "@container": "@list"
+    },
+    "practitioners": {
+      "@id": "predoc:practitioners",
+      "@container": "@list"
+    },
+    "documentReferences": {
+      "@id": "predoc:documentReferences",
+      "@container": "@list"
+    },
+    "ProblemItemDto": "predoc:ProblemItemDto",
+    "conditionId": {
+      "@id": "predoc:conditionId",
+      "@type": "xsd:string"
+    },
+    "problemCodes": {
+      "@id": "predoc:problemCodes",
+      "@container": "@list"
+    },
+    "onsetDate": {
+      "@id": "predoc:onsetDate",
+      "@type": "xsd:string"
+    },
+    "categoryCodes": {
+      "@id": "predoc:categoryCodes",
+      "@container": "@list"
+    },
+    "clinicalStatus": {
+      "@id": "predoc:clinicalStatus",
+      "@type": "xsd:string"
+    },
+    "categoryCodeName": {
+      "@id": "predoc:categoryCodeName",
+      "@type": "xsd:string"
+    },
+    "conditionNote": {
+      "@id": "predoc:conditionNote",
+      "@type": "xsd:string"
+    },
+    "resolutionDate": {
+      "@id": "predoc:resolutionDate",
+      "@type": "xsd:string"
+    },
+    "ImagingNoteItemDto": "predoc:ImagingNoteItemDto",
+    "imagingNoteId": {
+      "@id": "predoc:imagingNoteId",
+      "@type": "xsd:string"
+    },
+    "imagingNoteName": {
+      "@id": "predoc:imagingNoteName",
+      "@type": "xsd:string"
+    },
+    "imagingType": {
+      "@id": "predoc:imagingType",
+      "@type": "xsd:string"
+    },
+    "notes": {
+      "@id": "predoc:notes",
+      "@type": "xsd:string"
+    },
+    "requestInitialProcessedAt": {
+      "@id": "predoc:requestInitialProcessedAt",
+      "@type": "xsd:string"
+    },
+    "requestLastProcessedAt": {
+      "@id": "predoc:requestLastProcessedAt",
+      "@type": "xsd:string"
+    },
+    "LabItemDto": "predoc:LabItemDto",
+    "labId": {
+      "@id": "predoc:labId",
+      "@type": "xsd:string"
+    },
+    "labCodes": {
+      "@id": "predoc:labCodes",
+      "@container": "@list"
+    },
+    "unit": {
+      "@id": "predoc:unit",
+      "@type": "xsd:string"
+    },
+    "observationCategory": {
+      "@id": "predoc:observationCategory",
+      "@type": "xsd:string"
+    },
+    "diagnosticReportName": {
+      "@id": "predoc:diagnosticReportName",
+      "@type": "xsd:string"
+    },
+    "recordedDatetime": {
+      "@id": "predoc:recordedDatetime",
+      "@type": "xsd:string"
+    },
+    "interpretation": {
+      "@id": "predoc:interpretation",
+      "@type": "xsd:string"
+    },
+    "labText": {
+      "@id": "predoc:labText",
+      "@type": "xsd:string"
+    },
+    "performerPractitionerRoleIdReferences": {
+      "@id": "predoc:performerPractitionerRoleIdReferences",
+      "@container": "@list"
+    },
+    "interpreterPractitionerRoleIdReferences": {
+      "@id": "predoc:interpreterPractitionerRoleIdReferences",
+      "@container": "@list"
+    },
+    "MedicationItemDto": "predoc:MedicationItemDto",
+    "medicationCodes": {
+      "@id": "predoc:medicationCodes",
+      "@container": "@list"
+    },
+    "statementId": {
+      "@id": "predoc:statementId",
+      "@type": "xsd:string"
+    },
+    "statementText": {
+      "@id": "predoc:statementText",
+      "@type": "xsd:string"
+    },
+    "startDatetime": {
+      "@id": "predoc:startDatetime",
+      "@type": "xsd:string"
+    },
+    "endDatetime": {
+      "@id": "predoc:endDatetime",
+      "@type": "xsd:string"
+    },
+    "doseValue": {
+      "@id": "predoc:doseValue",
+      "@type": "xsd:string"
+    },
+    "doseUnit": {
+      "@id": "predoc:doseUnit",
+      "@type": "xsd:string"
+    },
+    "doseRoute": {
+      "@id": "predoc:doseRoute",
+      "@type": "xsd:string"
+    },
+    "patientInstructions": {
+      "@id": "predoc:patientInstructions",
+      "@type": "xsd:string"
+    },
+    "OtherItemDto": "predoc:OtherItemDto",
+    "otherId": {
+      "@id": "predoc:otherId",
+      "@type": "xsd:string"
+    },
+    "PathologyResultItemDto": "predoc:PathologyResultItemDto",
+    "pathologyResultId": {
+      "@id": "predoc:pathologyResultId",
+      "@type": "xsd:string"
+    },
+    "pathologyName": {
+      "@id": "predoc:pathologyName",
+      "@type": "xsd:string"
+    },
+    "specimenSource": {
+      "@id": "predoc:specimenSource",
+      "@type": "xsd:string"
+    },
+    "ProcedureItemDto": "predoc:ProcedureItemDto",
+    "procedureId": {
+      "@id": "predoc:procedureId",
+      "@type": "xsd:string"
+    },
+    "procedureCodes": {
+      "@id": "predoc:procedureCodes",
+      "@container": "@list"
+    },
+    "procedureNote": {
+      "@id": "predoc:procedureNote",
+      "@type": "xsd:string"
+    },
+    "procedureDatetime": {
+      "@id": "predoc:procedureDatetime",
+      "@type": "xsd:string"
+    },
+    "asserterPractitionerRoleId": {
+      "@id": "predoc:asserterPractitionerRoleId",
+      "@type": "xsd:string"
+    },
+    "performerPractitionerRoleId": {
+      "@id": "predoc:performerPractitionerRoleId",
+      "@type": "xsd:string"
+    },
+    "reason": {
+      "@id": "predoc:reason",
+      "@type": "xsd:string"
+    },
+    "reasonCodes": {
+      "@id": "predoc:reasonCodes",
+      "@container": "@list"
+    },
+    "ProcedureNoteItemDto": "predoc:ProcedureNoteItemDto",
+    "procedureNoteId": {
+      "@id": "predoc:procedureNoteId",
+      "@type": "xsd:string"
+    },
+    "procedureName": {
+      "@id": "predoc:procedureName",
+      "@type": "xsd:string"
+    },
+    "dateOfProcedure": {
+      "@id": "predoc:dateOfProcedure",
+      "@type": "xsd:string"
+    },
+    "professionalDesignation1": {
+      "@id": "predoc:professionalDesignation1",
+      "@type": "xsd:string"
+    },
+    "professionalDesignation2": {
+      "@id": "predoc:professionalDesignation2",
+      "@type": "xsd:string"
+    },
+    "professionalDesignation3": {
+      "@id": "predoc:professionalDesignation3",
+      "@type": "xsd:string"
+    },
+    "VaccinationItemDto": "predoc:VaccinationItemDto",
+    "immunizationId": {
+      "@id": "predoc:immunizationId",
+      "@type": "xsd:string"
+    },
+    "immunizationCodes": {
+      "@id": "predoc:immunizationCodes",
+      "@container": "@list"
+    },
+    "route": {
+      "@id": "predoc:route",
+      "@type": "xsd:string"
+    },
+    "routeCodes": {
+      "@id": "predoc:routeCodes",
+      "@container": "@list"
+    },
+    "occurrenceTime": {
+      "@id": "predoc:occurrenceTime",
+      "@type": "xsd:string"
+    },
+    "siteCodes": {
+      "@id": "predoc:siteCodes",
+      "@container": "@list"
+    },
+    "site": {
+      "@id": "predoc:site",
+      "@type": "xsd:string"
+    }
+  },
+  "@type": "schema:Dataset",
+  "schema:name": "Predoc API JSON-LD context",
+  "schema:description": "A JSON-LD @context for the objects Predoc's own API contract declares: one class per component schema, one property per declared field, typed from the contract. Derived by script (derive-json-ld.py, 2026-10-14) from openapi/predoc-partner-api-openapi.yml.",
+  "dcterms:created": "2026-10-14",
+  "dcterms:source": [
+    "openapi/predoc-partner-api-openapi.yml"
+  ]
+}

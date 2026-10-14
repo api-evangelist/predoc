@@ -1,0 +1,494 @@
+generated: '2026-10-14'
+method: generated
+source: openapi/predoc-partner-api-openapi.yml
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 40
+  by_action_class:
+    acting: 13
+    connected: 27
+  by_consequence:
+    safety-critical: 13
+    read: 27
+  human_in_the_loop_required: 13
+operations:
+- path: /v1/auth/token
+  method: post
+  operationId: AuthController_signIn_v1
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/documents/{documentId}
+  method: get
+  operationId: DocumentController_getPatientClinicalSummary_v1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/events
+  method: post
+  operationId: WebhookConfigurationController_createWebhookConfiguration_v1
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/events
+  method: get
+  operationId: WebhookConfigurationController_listWebhookConfigurations_v1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/events/{configurationId}
+  method: patch
+  operationId: WebhookConfigurationController_updateWebhookConfiguration_v1
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/events/{configurationId}
+  method: delete
+  operationId: WebhookConfigurationController_deleteWebhookConfiguration_v1
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/patients
+  method: get
+  operationId: PatientController_searchPatientsByInformation_v1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/patients/{patientId}
+  method: get
+  operationId: PatientController_getPatientInformation_v1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/patients/{patientId}
+  method: patch
+  operationId: PatientController_updatePatientInformation_v1
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/patients/{patientId}/additional-records
+  method: get
+  operationId: PatientDocumentsController_getPatientAdditionalRecords_v1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/patients/{patientId}/curated-patient-data/{classificationGroupType}
+  method: get
+  operationId: CuratedPatientDataController_getCuratedPatientData_v1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/patients/{patientId}/documents
+  method: get
+  operationId: PatientDocumentsController_getPatientDocuments_v1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/patients/{patientId}/drug-allergies
+  method: get
+  operationId: PatientDocumentsController_getPatientDrugAllergies_v1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/patients/{patientId}/facesheets
+  method: get
+  operationId: PatientDocumentsController_getPatientFacesheets_v1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/patients/{patientId}/facesheets/requests/{facesheetRequestId}/output
+  method: get
+  operationId: PatientDocumentsController_getPatientFacesheetOutput_v1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/patients/{patientId}/hie-docs
+  method: get
+  operationId: PatientDocumentsController_getPatientHieDocs_v1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/patients/{patientId}/imaging-results
+  method: get
+  operationId: PatientDocumentsController_getPatientImagingResults_v1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/patients/{patientId}/lab-results
+  method: get
+  operationId: PatientController_getPatientLabResultsBySearch_v1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/patients/{patientId}/lab-results/available
+  method: get
+  operationId: PatientController_getAvailablePatientChemistries_v1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/patients/{patientId}/lab-tests
+  method: get
+  operationId: PatientDocumentsController_getPatientLabTests_v1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/patients/{patientId}/medications
+  method: get
+  operationId: PatientDocumentsController_getPatientMedications_v1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/patients/{patientId}/other-records
+  method: get
+  operationId: PatientDocumentsController_getPatientOtherRecords_v1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/patients/{patientId}/procedure-notes
+  method: get
+  operationId: PatientDocumentsController_getPatientProcedureNotes_v1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/patients/{patientId}/provider-notes
+  method: get
+  operationId: PatientDocumentsController_getPatientProviderFacilityNotes_v1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/patients/{patientId}/requests
+  method: get
+  operationId: PatientController_getPatientRequests_v1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/patients/{patientId}/requests
+  method: post
+  operationId: PatientController_addRequestToExistingPatient_v1
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/patients/{patientId}/summary
+  method: post
+  operationId: PatientController_requestPatientClinicalSummary_v1
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/patients/{patientId}/vaccine-documents
+  method: get
+  operationId: PatientDocumentsController_getPatientVaccineDocuments_v1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/patients/{patientId}/vaccine-records
+  method: get
+  operationId: PatientDocumentsController_getPatientVaccineRecords_v1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/records/upload/anonymous
+  method: post
+  operationId: RecordUploadController_uploadAnonymousRecord_v1
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/records/uploads/{recordUploadId}/status
+  method: get
+  operationId: RecordUploadController_getAnonymousRecordUploadStatus_v1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/requests/facesheet-configs
+  method: get
+  operationId: RequestController_facesheetConfigs_v1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/requests/{requestId}
+  method: patch
+  operationId: RequestController_updateExistingRecordRequest_v1
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/retrievals/previous-providers/{retrievalId}
+  method: get
+  operationId: RetrievalController_getRetrieval_v1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/retrievals/previous-providers/{retrievalId}/close
+  method: post
+  operationId: RetrievalController_closeRetrieval_v1
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v2/patients
+  method: post
+  operationId: PatientController_createPatient_v2
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v2/patients/{patientId}/documents/search
+  method: post
+  operationId: PatientController_searchPatientDocuments_v2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/records/upload
+  method: post
+  operationId: RecordUploadController_uploadRecordV2_v2
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v2/requests
+  method: post
+  operationId: RequestController_createRecordRequestV2_v2
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v2/requests
+  method: get
+  operationId: RequestController_getListOfRecordRequests_v2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none

@@ -1,0 +1,16 @@
+generated: '2026-10-14'
+method: none
+source:
+- https://zapier.com/apps/predoc/integrations
+- https://n8n.io/integrations/predoc/
+- https://composio.dev/toolkits/predoc
+- https://monid.ai/tools/predoc
+checked:
+- https://composio.dev/toolkits/predoc
+- https://monid.ai/tools/predoc
+- https://n8n.io/integrations/predoc/
+- https://zapier.com/apps/predoc/integrations
+summary: null
+marketplace_apps: []
+edges: []
+templates: []

@@ -1,0 +1,430 @@
+generated: '2026-10-14'
+method: derived
+generator: derive-vocabulary.py
+source: openapi/predoc-partner-api-openapi.yml
+vocabulary:
+  name: Predoc Domain Vocabulary
+  description: 'Terms declared by Predoc''s own API contract: its resource groups, objects and enumerations, with the contract''s definitions.
+    Derived, not authored.'
+  version: '2026-10-14'
+  terms:
+  - term: GetAccessTokenInput
+    definition: 'Object declared by the contract with fields: client_id, secret_key.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/GetAccessTokenInput
+  - term: GetAccessTokenResponse
+    definition: 'Object declared by the contract with fields: access_token.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/GetAccessTokenResponse
+  - term: AddressInpDto
+    definition: 'Object declared by the contract with fields: addressLine1, addressLine2, city, stateCode, postalCode, countryCode.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/AddressInpDto
+  - term: CreatePatientV2InpDto
+    definition: 'Object declared by the contract with fields: firstName, middleInitial, lastName, dateOfBirth, phoneCountryCode, phoneNumber,
+      email, patientAddress, patientGender, allowDuplicatePatient.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/CreatePatientV2InpDto
+  - term: CreatePatientRespDto
+    definition: 'Object declared by the contract with fields: patientId.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/CreatePatientRespDto
+  - term: PatientInfoResponseDto
+    definition: 'Object declared by the contract with fields: partnerPatientId, patientKey, firstName, middleName, lastName, genderName, dateOfBirth,
+      phoneNumber, addressLine1, addressLine2, city, state. (2 more)'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/PatientInfoResponseDto
+  - term: FacesheetRequestRespDto
+    definition: 'Object declared by the contract with fields: id, status, name, submittedAt.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/FacesheetRequestRespDto
+  - term: HieRequestRespDto
+    definition: 'Object declared by the contract with fields: id, status, submittedAt, alternativeZipCodes.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/HieRequestRespDto
+  - term: PreviousProviderResponseDto
+    definition: 'Object declared by the contract with fields: id, retrievalId, currentOrganizationName, providerName, practiceName, officeStreetAddress1,
+      officeStreetAddress2, officeCity, officeState, officeZip, officePhoneNumber, serviceStartDate. (4 more)'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/PreviousProviderResponseDto
+  - term: PatientCrrRequestResponseDto
+    definition: 'Object declared by the contract with fields: crrId, createdAt, creatorFirstName, creatorLastName, updatedAt, requestingProviderName,
+      requestReason, referenceId, cumulativeRequestStatus, requestedProviders, hieRequests, medicationsRequests. (2 more)'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/PatientCrrRequestResponseDto
+  - term: PatientRequestsResponseDto
+    definition: 'Object declared by the contract with fields: partnerPatientId, crrRequests, standaloneFacesheetRequests.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/PatientRequestsResponseDto
+  - term: PatientSearchBodyInput
+    definition: 'Object declared by the contract with fields: firstName, lastName, phoneNumber, dateOfBirth.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/PatientSearchBodyInput
+  - term: UpdatePatientInformationInpDto
+    definition: 'Object declared by the contract with fields: firstName, middleName, middleInitial, lastName, dateOfBirth, patientGender, phoneCountryCode,
+      phoneNumber, email, patientAddress, primaryLanguage.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/UpdatePatientInformationInpDto
+  - term: UpdatePatientInformationRespDto
+    definition: 'Object declared by the contract with fields: patientId, result, message.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/UpdatePatientInformationRespDto
+  - term: AddressPreviousProviderInpDto
+    definition: 'Object declared by the contract with fields: addressLine1, addressLine2, city, stateCode, postalCode, countryCode.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/AddressPreviousProviderInpDto
+  - term: RequestDatesOfServiceInpDto
+    definition: 'Object declared by the contract with fields: serviceStartDate, serviceEndDate.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/RequestDatesOfServiceInpDto
+  - term: PreviousProviderInpDto
+    definition: 'Object declared by the contract with fields: orgName, providerFirstName, providerLastName, practiceName, orgAddress, orgPhoneCountryCode,
+      orgPhoneNumber, orgFaxNumber, datesOfService, specificMedicalRecordRequested.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/PreviousProviderInpDto
+  - term: EncodedFileInpDto
+    definition: 'Object declared by the contract with fields: encodedFile, fileExtension, dataType.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/EncodedFileInpDto
+  - term: CreateCrrInpDto
+    definition: 'Object declared by the contract with fields: releaseToOrgName, releaseToProviderName, previousProviders, doNotKnowPreviousProvider,
+      reasonForRequest, futureAppointmentDate, requestingProviderEmail, patientAuthFile, referenceId, sendHieRequest, sendMedicationsRequest,
+      facesheetConfigId. (1 more)'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/CreateCrrInpDto
+  - term: PreviousProviderRetrievalRespDto
+    definition: 'Object declared by the contract with fields: id.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/PreviousProviderRetrievalRespDto
+  - term: RecordRequestRespDto
+    definition: 'Object declared by the contract with fields: partnerPatientId, requestId, message, referenceId, previousProviderRetrievals.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/RecordRequestRespDto
+  - term: RetrievalCloseRespDto
+    definition: 'Object declared by the contract with fields: retrievalId, requestId, accepted, message.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/RetrievalCloseRespDto
+  - term: CreatePatientWithCrrV2InpDto
+    definition: 'Object declared by the contract with fields: releaseToOrgName, releaseToProviderName, previousProviders, doNotKnowPreviousProvider,
+      reasonForRequest, futureAppointmentDate, requestingProviderEmail, patientAuthFile, referenceId, sendHieRequest, sendMedicationsRequest,
+      facesheetConfigId. (11 more)'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/CreatePatientWithCrrV2InpDto
+  - term: RetrievalStatusRespDto
+    definition: 'Object declared by the contract with fields: retrievalId, partnerPatientId, requestId, status, statusGroup, updatedAt, canClose.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/RetrievalStatusRespDto
+  - term: PatientDataRespDto
+    definition: 'Object declared by the contract with fields: middleName, firstName, lastName, address, dateOfBirth, genderName, phoneNumber,
+      email, primaryLanguage, cumulativePatientStatus, partnerPatientId, patientKey.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/PatientDataRespDto
+  - term: PatientCrrRequestShortRespDto
+    definition: 'Object declared by the contract with fields: requestId, referenceId.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/PatientCrrRequestShortRespDto
+  - term: OrganizationPatientStatusRespDto
+    definition: 'Object declared by the contract with fields: patient, requests.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/OrganizationPatientStatusRespDto
+  - term: PaginationRespDto
+    definition: 'Object declared by the contract with fields: offset, limit, total.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/PaginationRespDto
+  - term: RecordRequestListRespDto
+    definition: 'Object declared by the contract with fields: recordRequests, pagination.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/RecordRequestListRespDto
+  - term: FacesheetConfigRespDto
+    definition: 'Object declared by the contract with fields: facesheetId, facesheetName.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/FacesheetConfigRespDto
+  - term: FacesheetConfigListRespDto
+    definition: 'Object declared by the contract with fields: facesheetConfigs.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/FacesheetConfigListRespDto
+  - term: PreviousProviderUpdInpDto
+    definition: 'Object declared by the contract with fields: orgName, providerFirstName, providerLastName, practiceName, orgAddress, orgPhoneCountryCode,
+      orgPhoneNumber, orgFaxNumber, datesOfService, specificMedicalRecordRequested, id.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/PreviousProviderUpdInpDto
+  - term: ModifyCrrInpDto
+    definition: 'Object declared by the contract with fields: releaseToOrgName, releaseToProviderName, previousProviders, doNotKnowPreviousProvider,
+      reasonForRequest, futureAppointmentDate, requestingProviderEmail, patientAuthFile, referenceId, sendMedicationsRequest, facesheetConfigId,
+      facesheetConfigIds. (1 more)'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/ModifyCrrInpDto
+  - term: UpdateRequestRespDto
+    definition: 'Object declared by the contract with fields: message, requestId, partnerPatientId, status, referenceId.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/UpdateRequestRespDto
+  - term: RecordUploadPatientData
+    definition: 'Object declared by the contract with fields: firstName, lastName, dateOfBirth, phone, email, address1, address2, city, state,
+      postalCode, genderName.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/RecordUploadPatientData
+  - term: RecordUploadV2InpDto
+    definition: 'Object declared by the contract with fields: patientData, partnerPatientId, appointmentDate, fileName, notificationEmails, allowDuplicatePatient.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/RecordUploadV2InpDto
+  - term: RecordUploadV2RespDto
+    definition: 'Object declared by the contract with fields: patientId, recordUploadId.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/RecordUploadV2RespDto
+  - term: AnonymousRecordUploadRespDto
+    definition: 'Object declared by the contract with fields: recordUploadId, status, message.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/AnonymousRecordUploadRespDto
+  - term: RecordProviderInfoDto
+    definition: 'Object declared by the contract with fields: firstName, lastName, designations, providerFacilityType, facilityName, email, inferredNpi.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/RecordProviderInfoDto
+  - term: RecordUploadPatientDocumentDto
+    definition: 'Object declared by the contract with fields: documentId, documentType, downloadUrl, indexedRecordSpliceType.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/RecordUploadPatientDocumentDto
+  - term: AnonymousRecordUploadStatusRespDto
+    definition: 'Object declared by the contract with fields: recordUploadId, status, recipientProviders, sendingProviders, originalDocumentDownloadUrl,
+      documents.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/AnonymousRecordUploadStatusRespDto
+  - term: DocumentUrlDto
+    definition: 'Object declared by the contract with fields: id, url, createdAt.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/DocumentUrlDto
+  - term: DocumentDto
+    definition: 'Object declared by the contract with fields: id, title, comments, date, createdAt, images, documentType, indexedRecordSpliceType.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/DocumentDto
+  - term: DrugAllergyDto
+    definition: 'Object declared by the contract with fields: id, drugName, alternateName, reaction, comments, createdAt, images, indexedRecordSpliceType.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/DrugAllergyDto
+  - term: ImagingTypeDto
+    definition: 'Object declared by the contract with fields: id, name, displayName.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/ImagingTypeDto
+  - term: BodyPartDto
+    definition: 'Object declared by the contract with fields: id, name, displayName.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/BodyPartDto
+  - term: ImagingResultDto
+    definition: 'Object declared by the contract with fields: id, type, bodyPart, alternateBodyPartName, title, date, comments, createdAt, images,
+      indexedRecordSpliceType.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/ImagingResultDto
+  - term: LabTestDocumentUrlDto
+    definition: 'Object declared by the contract with fields: id, url, createdAt.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/LabTestDocumentUrlDto
+  - term: SpecialtyTypeDto
+    definition: 'Object declared by the contract with fields: id, name, displayName.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/SpecialtyTypeDto
+  - term: LabTestResultDto
+    definition: 'Object declared by the contract with fields: id, labTestId, specialty, chemistryName, value, normalRange, isTrendable, createdAt.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/LabTestResultDto
+  - term: LabTestDocumentDto
+    definition: 'Object declared by the contract with fields: id, type, title, date, status, createdAt, images, results.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/LabTestDocumentDto
+  - term: OtherRecordTypeDto
+    definition: 'Object declared by the contract with fields: id, name, displayName.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/OtherRecordTypeDto
+  - term: OtherRecordDto
+    definition: 'Object declared by the contract with fields: id, type, title, date, status, comments, createdAt, images, indexedRecordSpliceType.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/OtherRecordDto
+  - term: ProcedureNoteDto
+    definition: 'Object declared by the contract with fields: id, title, proceduralist, date, comments, createdAt, images, indexedRecordSpliceType.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/ProcedureNoteDto
+  - term: ProviderTypeDto
+    definition: 'Object declared by the contract with fields: id, name, displayName.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/ProviderTypeDto
+  - term: ProviderFacilityNoteDto
+    definition: 'Object declared by the contract with fields: id, providerType, alternateProviderTypeName, providerName, date, comments, createdAt,
+      images, indexedRecordSpliceType.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/ProviderFacilityNoteDto
+  - term: VaccineTypeDto
+    definition: 'Object declared by the contract with fields: id, name, displayName.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/VaccineTypeDto
+  - term: VaccineRecordDto
+    definition: 'Object declared by the contract with fields: id, type, alternateName, date, comments, createdAt, images, indexedRecordSpliceType.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/VaccineRecordDto
+  - term: VaccineDocumentUrlDto
+    definition: 'Object declared by the contract with fields: id, url, createdAt.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/VaccineDocumentUrlDto
+  - term: VaccineDocumentVaccineDto
+    definition: 'Object declared by the contract with fields: id, type, alternateName, date, comments.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/VaccineDocumentVaccineDto
+  - term: VaccineDocumentDto
+    definition: 'Object declared by the contract with fields: id, createdAt, images, indexedRecordSpliceType, vaccines.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/VaccineDocumentDto
+  - term: FacesheetDto
+    definition: 'Object declared by the contract with fields: id, requestId, name, date, title, createdAt, images.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/FacesheetDto
+  - term: HieDocDto
+    definition: 'Object declared by the contract with fields: id, createdAt, title, image, images.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/HieDocDto
+  - term: MedicationSourceDto
+    definition: 'Object declared by the contract with fields: qualifier, description.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/MedicationSourceDto
+  - term: MedicationDto
+    definition: 'Object declared by the contract with fields: medicationId, medicationTitle, dosageValue, dosageFormRaw, dosageForm, dosageUnitRaw,
+      dosageUnit, diagnosis, prescriberFirstName, prescriberLastName, prescriberPracticeName, prescriberNpi. (14 more)'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/MedicationDto
+  - term: PatientDocumentSearchInpDto
+    definition: 'Object declared by the contract with fields: categories, fromDate, toDate.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/PatientDocumentSearchInpDto
+  - term: PatientDocumentRespDto
+    definition: 'Object declared by the contract with fields: drugAllergies, documents, imagingResults, labTests, otherRecords, procedureNotes,
+      providerFacilityNotes, vaccineRecords, vaccineDocuments, facesheets, hieDocs, medications.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/PatientDocumentRespDto
+  - term: PatientDocumentSearchRespDto
+    definition: 'Object declared by the contract with fields: partnerPatientId, documents.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/PatientDocumentSearchRespDto
+  - term: PatientAvailableChemRespDto
+    definition: 'Object declared by the contract with fields: patientId, availableChemistries.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/PatientAvailableChemRespDto
+  - term: AdditionalRecordDto
+    definition: 'Object declared by the contract with fields: id, title, date, comments, createdAt, images, indexedRecordSpliceType.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/AdditionalRecordDto
+  - term: PatientAdditionalRecordsDto
+    definition: 'Object declared by the contract with fields: partnerPatientId, additionalRecords.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/PatientAdditionalRecordsDto
+  - term: PatientDocumentsDto
+    definition: 'Object declared by the contract with fields: partnerPatientId, documents.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/PatientDocumentsDto
+  - term: PatientDrugAllergiesDto
+    definition: 'Object declared by the contract with fields: partnerPatientId, drugAllergies.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/PatientDrugAllergiesDto
+  - term: PatientFacesheetsDto
+    definition: 'Object declared by the contract with fields: partnerPatientId, facesheets.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/PatientFacesheetsDto
+  - term: FacesheetOutputSourceDto
+    definition: 'Object declared by the contract with fields: source, retrievalDate, curatedDataId, classificationGroupType, downloadUrl.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/FacesheetOutputSourceDto
+  - term: FacesheetOutputReferenceDto
+    definition: 'Object declared by the contract with fields: sources.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/FacesheetOutputReferenceDto
+  - term: FacesheetOutputChildRowDto
+    definition: 'Object declared by the contract with fields: question, answer, rationale, references.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/FacesheetOutputChildRowDto
+  - term: FacesheetOutputRowDto
+    definition: 'Object declared by the contract with fields: question, answer, rationale, references, children.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/FacesheetOutputRowDto
+  - term: FacesheetOutputDto
+    definition: 'Object declared by the contract with fields: requestId, questions.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/FacesheetOutputDto
+  - term: PatientFacesheetOutputDto
+    definition: 'Object declared by the contract with fields: partnerPatientId, facesheet.'
+    tags:
+    - Object
+    source: openapi/predoc-partner-api-openapi.yml#/components/schemas/PatientFacesheetOutputDto

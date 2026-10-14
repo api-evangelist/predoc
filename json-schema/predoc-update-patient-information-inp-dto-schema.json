@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/predoc/main/json-schema/predoc-update-patient-information-inp-dto-schema.json",
+  "title": "UpdatePatientInformationInpDto",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/predoc-partner-api-openapi.yml#/components/schemas/UpdatePatientInformationInpDto",
+  "type": "object",
+  "properties": {
+    "firstName": {
+      "type": "string",
+      "description": "First name of the patient.",
+      "minLength": 2,
+      "maxLength": 45
+    },
+    "middleName": {
+      "type": "string",
+      "description": "Middle name of the patient."
+    },
+    "middleInitial": {
+      "type": "string",
+      "description": "Middle initial of the patient."
+    },
+    "lastName": {
+      "type": "string",
+      "description": "Last name of the patient.",
+      "minLength": 2,
+      "maxLength": 60
+    },
+    "dateOfBirth": {
+      "type": "string",
+      "description": "Date of birth of the patient, in `YYYY-MM-DD` format."
+    },
+    "patientGender": {
+      "type": "string",
+      "description": "Gender of the patient.",
+      "enum": [
+        "male",
+        "female",
+        "na",
+        "other"
+      ]
+    },
+    "phoneCountryCode": {
+      "type": "string",
+      "deprecated": true,
+      "description": "Country code of the patient’s phone number with a `+` at the beginning. Defaults to +1."
+    },
+    "phoneNumber": {
+      "type": "string",
+      "description": "Phone number of the patient, with no special characters (only digits).",
+      "minLength": 10,
+      "maxLength": 10
+    },
+    "email": {
+      "type": "string",
+      "description": "Email address of the patient."
+    },
+    "patientAddress": {
+      "description": "Physical address of the patient.",
+      "allOf": [
+        {
+          "$ref": "#/$defs/AddressInpDto"
+        }
+      ]
+    },
+    "primaryLanguage": {
+      "type": "string",
+      "description": "Accepted for backward compatibility. This value is not currently applied to patient updates."
+    }
+  },
+  "required": [
+    "firstName",
+    "lastName",
+    "dateOfBirth",
+    "patientGender",
+    "phoneNumber",
+    "patientAddress"
+  ],
+  "$defs": {
+    "AddressInpDto": {
+      "type": "object",
+      "properties": {
+        "addressLine1": {
+          "type": "string",
+          "description": "Street address line 1."
+        },
+        "addressLine2": {
+          "type": "string",
+          "description": "Street address line 2."
+        },
+        "city": {
+          "type": "string",
+          "description": "Name of the city."
+        },
+        "stateCode": {
+          "type": "string",
+          "description": "Two letter state code for the address."
+        },
+        "postalCode": {
+          "type": "string",
+          "description": "Postal code for the address - 5 digits."
+        },
+        "countryCode": {
+          "type": "string",
+          "description": "<strong>NOTE:</strong> This field is deprecated and will be removed in a future release.",
+          "default": "USA",
+          "deprecated": true
+        }
+      },
+      "required": [
+        "postalCode"
+      ]
+    }
+  }
+}

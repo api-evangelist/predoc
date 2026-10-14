@@ -1,0 +1,221 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/predoc/main/json-schema/predoc-create-crr-inp-dto-schema.json",
+  "title": "CreateCrrInpDto",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/predoc-partner-api-openapi.yml#/components/schemas/CreateCrrInpDto",
+  "type": "object",
+  "properties": {
+    "releaseToOrgName": {
+      "type": "string",
+      "description": "Name of the organization making the request."
+    },
+    "releaseToProviderName": {
+      "type": "string",
+      "description": "Name of the provider the patient is being released to."
+    },
+    "previousProviders": {
+      "description": "List of previous providers known for the requested patient.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/PreviousProviderInpDto"
+      }
+    },
+    "doNotKnowPreviousProvider": {
+      "type": "boolean",
+      "deprecated": true,
+      "description": "<strong>NOTE:</strong> This field is deprecated and will be removed in a future release. Please use the `previousProviders` field instead."
+    },
+    "reasonForRequest": {
+      "type": "integer",
+      "description": "Reason for the request: `0` for Future Appointment or `2` for Information Gathering.",
+      "enum": [
+        0,
+        2
+      ]
+    },
+    "futureAppointmentDate": {
+      "type": "string",
+      "description": "Date of the future appointment in `YYYY-MM-DD` format. Required if the request reason is `0 (Future Appointment)`."
+    },
+    "requestingProviderEmail": {
+      "type": "string",
+      "description": "Email address of the provider or physician making the request."
+    },
+    "patientAuthFile": {
+      "description": "Base-64 encoded file data for the patient authorization file, if available.",
+      "allOf": [
+        {
+          "$ref": "#/$defs/EncodedFileInpDto"
+        }
+      ]
+    },
+    "referenceId": {
+      "type": "string",
+      "description": "User-defined reference number for the request. This can be used for your own records and is not used by the Predoc platform."
+    },
+    "sendHieRequest": {
+      "type": "boolean",
+      "description": "Send HIE request."
+    },
+    "sendMedicationsRequest": {
+      "type": "boolean",
+      "description": "Send Medications request."
+    },
+    "facesheetConfigId": {
+      "type": "string",
+      "description": "Facesheet config ID to generate request with."
+    },
+    "facesheetConfigIds": {
+      "description": "Facesheet config IDs to generate request with.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      }
+    }
+  },
+  "required": [
+    "releaseToOrgName",
+    "releaseToProviderName",
+    "previousProviders",
+    "reasonForRequest",
+    "requestingProviderEmail"
+  ],
+  "$defs": {
+    "AddressPreviousProviderInpDto": {
+      "type": "object",
+      "properties": {
+        "addressLine1": {
+          "type": "string",
+          "description": "Street address line 1."
+        },
+        "addressLine2": {
+          "type": "string",
+          "description": "Street address line 2."
+        },
+        "city": {
+          "type": "string",
+          "description": "Name of the city."
+        },
+        "stateCode": {
+          "type": "string",
+          "description": "Two letter state code for the address."
+        },
+        "postalCode": {
+          "type": "string",
+          "description": "Postal code for the address - 5 digits."
+        },
+        "countryCode": {
+          "type": "string",
+          "description": "<strong>NOTE:</strong> This field is deprecated and will be removed in a future release.",
+          "default": "USA",
+          "deprecated": true
+        }
+      }
+    },
+    "EncodedFileInpDto": {
+      "type": "object",
+      "properties": {
+        "encodedFile": {
+          "type": "string",
+          "description": "Base-64 encoded data of the file being uploaded.",
+          "format": "base64"
+        },
+        "fileExtension": {
+          "type": "string",
+          "description": "File extension of the file being uploaded."
+        },
+        "dataType": {
+          "type": "string",
+          "description": "Type of the file being uploaded."
+        }
+      },
+      "required": [
+        "encodedFile",
+        "fileExtension",
+        "dataType"
+      ]
+    },
+    "PreviousProviderInpDto": {
+      "type": "object",
+      "properties": {
+        "orgName": {
+          "type": "string",
+          "description": "Full name of the organization provider. This is only required when `providerFirstName` and `providerLastName` are not used."
+        },
+        "providerFirstName": {
+          "type": "string",
+          "description": "First name of the provider. This is only required when `orgName` is not used."
+        },
+        "providerLastName": {
+          "type": "string",
+          "description": "Last name of the provider. This is only required when `orgName` is not used."
+        },
+        "practiceName": {
+          "type": "string",
+          "description": "Provider's practice name."
+        },
+        "orgAddress": {
+          "description": "Physical address of the organization's provider.",
+          "allOf": [
+            {
+              "$ref": "#/$defs/AddressPreviousProviderInpDto"
+            }
+          ]
+        },
+        "orgPhoneCountryCode": {
+          "type": "string",
+          "default": "+1",
+          "deprecated": true,
+          "description": "Country code of the organization's phone number with a + at the beginning."
+        },
+        "orgPhoneNumber": {
+          "type": "string",
+          "description": "Phone number of the organization, with no special characters (digits only)."
+        },
+        "orgFaxNumber": {
+          "type": "string",
+          "description": "Fax number of the organization, with no special characters (digits only)."
+        },
+        "datesOfService": {
+          "description": "Date range of when the organization provided care to the patient.",
+          "allOf": [
+            {
+              "$ref": "#/$defs/RequestDatesOfServiceInpDto"
+            }
+          ]
+        },
+        "specificMedicalRecordRequested": {
+          "type": "string",
+          "description": "Type of custom document requested, if necessary."
+        }
+      },
+      "required": [
+        "orgName",
+        "providerFirstName",
+        "providerLastName",
+        "datesOfService"
+      ]
+    },
+    "RequestDatesOfServiceInpDto": {
+      "type": "object",
+      "properties": {
+        "serviceStartDate": {
+          "type": "string",
+          "description": "Date of when the organization started providing care to the patient."
+        },
+        "serviceEndDate": {
+          "type": "string",
+          "description": "End date of when the organization stopped providing care to the patient."
+        }
+      },
+      "required": [
+        "serviceStartDate",
+        "serviceEndDate"
+      ]
+    }
+  }
+}

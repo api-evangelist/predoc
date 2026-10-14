@@ -1,17 +1,14 @@
 aid: predoc
+
 name: Predoc
-description: >-
-  Predoc is an AI-native medical records platform that automates the retrieval,
-  aggregation, normalization, de-duplication, and structured delivery of complete
-  patient histories. It queries health information exchanges (HIEs) and initiates
-  outreach to non-connected providers, ingests faxes, PDFs, and digital formats,
-  and delivers clean, FHIR-compliant clinical data to healthcare organizations and
-  clinical research teams via a REST Partner API, file exports, or direct EHR
-  integration. The Predoc Partner API (v1.4.1) exposes patient management,
-  record-retrieval requests, record uploads, granular clinical document endpoints
-  (medications, labs, imaging, procedures, notes, vaccines, allergies), clinical
-  summaries, and webhook event notifications, secured with short-lived JWT bearer
-  tokens.
+
+description: Predoc is an AI-native medical records platform that automates the retrieval, aggregation, normalization, de-duplication, and structured
+  delivery of complete patient histories. It queries health information exchanges (HIEs) and initiates outreach to non-connected providers, ingests
+  faxes, PDFs, and digital formats, and delivers clean, FHIR-compliant clinical data to healthcare organizations and clinical research teams via
+  a REST Partner API, file exports, or direct EHR integration. The Predoc Partner API (v1.4.1) exposes patient management, record-retrieval requests,
+  record uploads, granular clinical document endpoints (medications, labs, imaging, procedures, notes, vaccines, allergies), clinical summaries,
+  and webhook event notifications, secured with short-lived JWT bearer tokens.
+
 deliveryModel:
   model: saas
   open_source: false
@@ -23,6 +20,7 @@ deliveryModel:
   - pricing
   generated: '2026-08-28'
   method: derived
+
 accessModel:
   pricing: unknown
   onboarding: unknown
@@ -37,17 +35,28 @@ accessModel:
   - sandbox
   generated: '2026-09-03'
   method: derived
+
 image: https://cdn.prod.website-files.com/6827c1994862c627993a82d8/688c883a300cc1480f08f8a1_favicon_32.png
+
 url: https://raw.githubusercontent.com/api-evangelist/predoc/refs/heads/main/apis.yml
+
 x-type: company
+
 x-source: vc-portfolio
+
 x-backed-by:
 - northzone
+
 x-tier: stub
+
 x-tier-reason: portfolio-lead
+
 specificationVersion: '0.23'
+
 created: '2026-07-17'
+
 modified: '2026-07-20'
+
 tags:
 - Company
 - Healthcare
@@ -60,6 +69,7 @@ tags:
 - EHR Integration
 - Webhook
 - Clinical Research
+
 tags_raw:
 - Company
 - Healthcare
@@ -72,42 +82,28 @@ tags_raw:
 - EHR Integration
 - Webhooks
 - Clinical Research
-apis:
-- name: Predoc Partner API
-  description: >-
-    REST API for retrieving, aggregating, and delivering structured patient medical
-    records. Covers patient management, record-retrieval requests, previous-provider
-    retrievals, record uploads, granular clinical document endpoints, clinical
-    summaries, and webhook configuration. Authenticated with short-lived (5-minute)
-    JWT bearer tokens obtained from client_id/secret_key credentials.
-  humanURL: https://docs.predoc.ai
-  baseURL: https://partner-sandbox.predoc.ai/api/v1
-  version: 1.4.1
-  tags:
-  - Healthcare
-  - Medical Records
-  - FHIR
-  - Webhook
-  tags_raw:
-  - Healthcare
-  - Medical Records
-  - FHIR
-  - Webhooks
-  properties:
-  - type: Documentation
-    url: https://docs.predoc.ai
-  - type: APIReference
-    url: https://docs.predoc.ai/reference
-  - type: Authentication
-    url: authentication/predoc-authentication.yml
-  - type: Webhooks
-    url: asyncapi/predoc-webhooks.yml
+
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+
 common:
+- type: AgenticAccess
+  url: agentic-access/predoc-agentic-access.yml
+- type: Spectral
+  url: rules/predoc-rules.yml
+- type: JSONLD
+  url: json-ld/predoc-context.jsonld
+- type: Vocabulary
+  url: vocabulary/predoc-vocabulary.yml
+- type: Hosts
+  url: hosts/predoc-hosts.yml
+- type: Vendors
+  url: vendors/predoc-vendors.yml
+- type: Newsroom
+  url: https://www.predoc.ai/news
 - type: DomainSecurity
   url: security/predoc-domain-security.yml
 - type: Website
@@ -156,7 +152,9 @@ common:
   url: sandbox/predoc-sandbox.yml
 - type: X-MCPServerCandidate
   url: mcp/predoc-mcp.yml
-  note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type surfaces with a server that does not exist.'
+  note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published
+    API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting
+    the artifact-type surfaces with a server that does not exist.'
 - type: Webhooks
   url: asyncapi/predoc-webhooks.yml
 - type: DataModel
@@ -165,8 +163,58 @@ common:
   url: errors/predoc-problem-types.yml
 - type: AgentSkill
   url: skills/_index.yml
+
+apis:
+- name: Predoc Partner API
+  description: REST API for retrieving, aggregating, and delivering structured patient medical records. Covers patient management, record-retrieval
+    requests, previous-provider retrievals, record uploads, granular clinical document endpoints, clinical summaries, and webhook configuration.
+    Authenticated with short-lived (5-minute) JWT bearer tokens obtained from client_id/secret_key credentials.
+  humanURL: https://docs.predoc.ai
+  baseURL: https://partner-sandbox.predoc.ai/api/v1
+  version: 1.4.1
+  tags:
+  - Healthcare
+  - Medical Records
+  - FHIR
+  - Webhook
+  tags_raw:
+  - Healthcare
+  - Medical Records
+  - FHIR
+  - Webhooks
+  properties:
+  - url: openapi/predoc-partner-api-openapi.yml
+    type: OpenAPI
+  - type: Documentation
+    url: https://docs.predoc.ai
+  - type: APIReference
+    url: https://docs.predoc.ai/reference
+  - type: Authentication
+    url: authentication/predoc-authentication.yml
+  - type: Webhooks
+    url: asyncapi/predoc-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/predoc-create-patient-with-crr-v2-inp-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/predoc-modify-crr-inp-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/predoc-create-crr-inp-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/predoc-patient-info-response-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/predoc-update-patient-information-inp-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/predoc-create-patient-v2-inp-dto-schema.json
+  aid: predoc:predoc-partner-api
+
 x-enrichment:
   date: '2026-07-20'
   status: enriched
   artifacts_added: 18
   pass: local-v1
+
+x-readme-harvest:
+  date: '2026-10-14'
+  ops: 40
+  tool: harvest-readme-openapi.py
+  portal: https://docs.predoc.ai
