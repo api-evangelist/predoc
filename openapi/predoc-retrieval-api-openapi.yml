@@ -1,0 +1,195 @@
+openapi: 3.2.0
+info:
+  title: Predoc Partner Retrieval API
+  description: API for the Predoc platform to allow partners to request the retrieval of patient records.
+  version: '1.1'
+  contact: {}
+servers:
+- url: https://partner-api-stage.predoc.ai/api
+tags:
+- name: Retrieval
+paths:
+  /v1/retrievals/previous-providers/{retrievalId}:
+    get:
+      description: Gets the current status for a manual previous-provider retrieval by retrieval UUID.
+      operationId: RetrievalController_getRetrieval_v1
+      parameters:
+      - name: retrievalId
+        required: true
+        in: path
+        description: Retrieval id UUID.
+        schema:
+          format: uuid
+          example: 11111111-1111-4111-8111-111111111111
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrievalStatusRespDto'
+      security:
+      - bearer: []
+      summary: Get Previous-Provider Retrieval Status
+      tags:
+      - Retrieval
+  /v1/retrievals/previous-providers/{retrievalId}/close:
+    post:
+      description: 'Requests asynchronous closure of a manual previous-provider retrieval. The retrieval status updates when closure finishes.
+
+
+        > **Billing notice:** Closing a previous-provider retrieval after it has been initiated counts as a billable event.'
+      operationId: RetrievalController_closeRetrieval_v1
+      parameters:
+      - name: retrievalId
+        required: true
+        in: path
+        description: Retrieval id UUID.
+        schema:
+          format: uuid
+          example: 11111111-1111-4111-8111-111111111111
+          type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              example: {}
+      responses:
+        '202':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrievalCloseRespDto'
+      security:
+      - bearer: []
+      summary: Close Previous-Provider Retrieval
+      tags:
+      - Retrieval
+components:
+  schemas:
+    RetrievalCloseRespDto:
+      type: object
+      properties:
+        retrievalId:
+          type: string
+          description: Previous provider retrieval identifier UUID.
+          format: uuid
+          example: 11111111-1111-4111-8111-111111111111
+        requestId:
+          type: string
+          description: Predoc request identifier for the record request associated with this retrieval.
+          format: uuid
+        accepted:
+          type: boolean
+          description: Whether the close request was accepted for asynchronous processing.
+          example: true
+        message:
+          type: string
+          description: Status message for the close request.
+          example: Closure request accepted. Retrieval status will update shortly.
+      required:
+      - retrievalId
+      - requestId
+      - accepted
+      - message
+    RetrievalStatusRespDto:
+      type: object
+      properties:
+        retrievalId:
+          type: string
+          description: Manual retrieval identifier UUID.
+          format: uuid
+          example: 11111111-1111-4111-8111-111111111111
+        partnerPatientId:
+          type: string
+          description: Partner patient ID that owns this retrieval.
+          format: uuid
+        requestId:
+          type: string
+          description: Predoc request identifier for the record request associated with this retrieval.
+          format: uuid
+        status:
+          type: string
+          description: Current retrieval status.
+          example: Processing
+        statusGroup:
+          type: string
+          description: Normalized retrieval status group.
+          example: PROCESSING
+        updatedAt:
+          type: string
+          description: Timestamp when the retrieval was last updated.
+          format: date-time
+        canClose:
+          type: boolean
+          description: Whether the retrieval can currently be closed.
+          example: true
+      required:
+      - retrievalId
+      - partnerPatientId
+      - requestId
+      - status
+      - statusGroup
+      - updatedAt
+      - canClose
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+x-provenance:
+  method: searched
+  source: https://docs.predoc.ai/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.predoc.ai/reference/authcontroller_signin_v1.md
+  - https://docs.predoc.ai/reference/curatedpatientdatacontroller_getcuratedpatientdata_v1.md
+  - https://docs.predoc.ai/reference/documentcontroller_getpatientclinicalsummary_v1.md
+  - https://docs.predoc.ai/reference/patientcontroller_addrequesttoexistingpatient_v1.md
+  - https://docs.predoc.ai/reference/patientcontroller_createpatient_v2.md
+  - https://docs.predoc.ai/reference/patientcontroller_getavailablepatientchemistries_v1.md
+  - https://docs.predoc.ai/reference/patientcontroller_getpatientinformation_v1.md
+  - https://docs.predoc.ai/reference/patientcontroller_getpatientlabresultsbysearch_v1.md
+  - https://docs.predoc.ai/reference/patientcontroller_getpatientrequests_v1.md
+  - https://docs.predoc.ai/reference/patientcontroller_requestpatientclinicalsummary_v1.md
+  - https://docs.predoc.ai/reference/patientcontroller_searchpatientdocuments_v2.md
+  - https://docs.predoc.ai/reference/patientcontroller_searchpatientsbyinformation_v1.md
+  - https://docs.predoc.ai/reference/patientcontroller_updatepatientinformation_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientadditionalrecords_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientdocuments_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientdrugallergies_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientfacesheetoutput_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientfacesheets_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatienthiedocs_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientimagingresults_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientlabtests_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientmedications_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientotherrecords_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientprocedurenotes_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientproviderfacilitynotes_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientvaccinedocuments_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientvaccinerecords_v1.md
+  - https://docs.predoc.ai/reference/recorduploadcontroller_getanonymousrecorduploadstatus_v1.md
+  - https://docs.predoc.ai/reference/recorduploadcontroller_uploadanonymousrecord_v1.md
+  - https://docs.predoc.ai/reference/recorduploadcontroller_uploadrecordv2_v2.md
+  - https://docs.predoc.ai/reference/requestcontroller_createrecordrequestv2_v2.md
+  - https://docs.predoc.ai/reference/requestcontroller_facesheetconfigs_v1.md
+  - https://docs.predoc.ai/reference/requestcontroller_getlistofrecordrequests_v2.md
+  - https://docs.predoc.ai/reference/requestcontroller_updateexistingrecordrequest_v1.md
+  - https://docs.predoc.ai/reference/retrievalcontroller_closeretrieval_v1.md
+  - https://docs.predoc.ai/reference/retrievalcontroller_getretrieval_v1.md
+  - https://docs.predoc.ai/reference/webhookconfigurationcontroller_createwebhookconfiguration_v1.md
+  - https://docs.predoc.ai/reference/webhookconfigurationcontroller_deletewebhookconfiguration_v1.md
+  - https://docs.predoc.ai/reference/webhookconfigurationcontroller_listwebhookconfigurations_v1.md
+  - https://docs.predoc.ai/reference/webhookconfigurationcontroller_updatewebhookconfiguration_v1.md
+  merge:
+    pages: 40
+    deduped: 88
+    conflicts_kept_first: 0

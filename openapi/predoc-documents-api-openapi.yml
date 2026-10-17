@@ -1,0 +1,125 @@
+openapi: 3.2.0
+info:
+  title: Predoc Partner Documents API
+  description: API for the Predoc platform to allow partners to request the retrieval of patient records.
+  version: '1.1'
+  contact: {}
+servers:
+- url: https://partner-api-stage.predoc.ai/api
+tags:
+- name: Documents
+  description: ''
+paths:
+  /v1/documents/{documentId}:
+    get:
+      description: 'Returns the status of a clinical-summary document request. Use the `patientSummaryRequestId` returned when requesting a patient clinical summary as the `documentId` path parameter.
+
+
+        Possible statuses are `QUEUEING`, `QUEUED`, `GENERATING`, `ERROR`, and `READY`.'
+      operationId: DocumentController_getPatientClinicalSummary_v1
+      parameters:
+      - name: documentId
+        required: true
+        in: path
+        description: Document id.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The status of the document request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatientSummaryResDto'
+      security:
+      - bearer: []
+      summary: Document Status Request
+      tags:
+      - Documents
+components:
+  schemas:
+    PatientSummaryResDto:
+      type: object
+      properties:
+        patientSummaryRequestId:
+          type: string
+          description: Identifier that is used in subsequent API requests to check the status and retrieve the patient summary.
+          format: uuid
+        patientSummaryRequestStatus:
+          type: string
+          description: Status of the patient summary request.
+          enum:
+          - QUEUEING
+          - QUEUED
+          - GENERATING
+          - ERROR
+          - READY
+          example: QUEUED
+        patientSummaryRequestStatusMessage:
+          type: string
+          description: Any messages about the status of the patient summary request. This can include any errors that may have occurred during the request or notifications that the patient doesn't contain any of the requested categories.
+          example: Patient summary request submitted successfully
+        documentLink:
+          type: string
+          description: Once the document is in the `READY` status, this is the signed URL to download the document. This URL will expire after 24 hours.
+          format: url
+          example: https://example.com/patient-summary.pdf
+      required:
+      - patientSummaryRequestStatus
+      - patientSummaryRequestStatusMessage
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+x-provenance:
+  method: searched
+  source: https://docs.predoc.ai/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.predoc.ai/reference/authcontroller_signin_v1.md
+  - https://docs.predoc.ai/reference/curatedpatientdatacontroller_getcuratedpatientdata_v1.md
+  - https://docs.predoc.ai/reference/documentcontroller_getpatientclinicalsummary_v1.md
+  - https://docs.predoc.ai/reference/patientcontroller_addrequesttoexistingpatient_v1.md
+  - https://docs.predoc.ai/reference/patientcontroller_createpatient_v2.md
+  - https://docs.predoc.ai/reference/patientcontroller_getavailablepatientchemistries_v1.md
+  - https://docs.predoc.ai/reference/patientcontroller_getpatientinformation_v1.md
+  - https://docs.predoc.ai/reference/patientcontroller_getpatientlabresultsbysearch_v1.md
+  - https://docs.predoc.ai/reference/patientcontroller_getpatientrequests_v1.md
+  - https://docs.predoc.ai/reference/patientcontroller_requestpatientclinicalsummary_v1.md
+  - https://docs.predoc.ai/reference/patientcontroller_searchpatientdocuments_v2.md
+  - https://docs.predoc.ai/reference/patientcontroller_searchpatientsbyinformation_v1.md
+  - https://docs.predoc.ai/reference/patientcontroller_updatepatientinformation_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientadditionalrecords_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientdocuments_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientdrugallergies_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientfacesheetoutput_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientfacesheets_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatienthiedocs_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientimagingresults_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientlabtests_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientmedications_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientotherrecords_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientprocedurenotes_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientproviderfacilitynotes_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientvaccinedocuments_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientvaccinerecords_v1.md
+  - https://docs.predoc.ai/reference/recorduploadcontroller_getanonymousrecorduploadstatus_v1.md
+  - https://docs.predoc.ai/reference/recorduploadcontroller_uploadanonymousrecord_v1.md
+  - https://docs.predoc.ai/reference/recorduploadcontroller_uploadrecordv2_v2.md
+  - https://docs.predoc.ai/reference/requestcontroller_createrecordrequestv2_v2.md
+  - https://docs.predoc.ai/reference/requestcontroller_facesheetconfigs_v1.md
+  - https://docs.predoc.ai/reference/requestcontroller_getlistofrecordrequests_v2.md
+  - https://docs.predoc.ai/reference/requestcontroller_updateexistingrecordrequest_v1.md
+  - https://docs.predoc.ai/reference/retrievalcontroller_closeretrieval_v1.md
+  - https://docs.predoc.ai/reference/retrievalcontroller_getretrieval_v1.md
+  - https://docs.predoc.ai/reference/webhookconfigurationcontroller_createwebhookconfiguration_v1.md
+  - https://docs.predoc.ai/reference/webhookconfigurationcontroller_deletewebhookconfiguration_v1.md
+  - https://docs.predoc.ai/reference/webhookconfigurationcontroller_listwebhookconfigurations_v1.md
+  - https://docs.predoc.ai/reference/webhookconfigurationcontroller_updatewebhookconfiguration_v1.md
+  merge:
+    pages: 40
+    deduped: 88
+    conflicts_kept_first: 0

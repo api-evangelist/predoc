@@ -1,0 +1,379 @@
+openapi: 3.2.0
+info:
+  title: Predoc Partner Record Upload API
+  description: API for the Predoc platform to allow partners to request the retrieval of patient records.
+  version: '1.1'
+  contact: {}
+servers:
+- url: https://partner-api-stage.predoc.ai/api
+tags:
+- name: Record Upload
+paths:
+  /v1/records/upload/anonymous:
+    post:
+      description: Uploads a PDF record that is not yet associated with a patient profile. Only PDF files are accepted, with a maximum file size of 300 MB.
+      operationId: RecordUploadController_uploadAnonymousRecord_v1
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+              - file
+              - fileName
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: PDF file upload.
+                fileName:
+                  type: string
+                  description: File name. fileName is matched case-insensitively for duplicate detection. Changing only letter casing, such as Report.pdf to report.pdf, is treated as the same filename and may still be rejected as a duplicate. Pipe characters (|) are removed during upload.
+                  maxLength: 255
+                urgent:
+                  type: boolean
+                  description: Whether the upload is urgent.
+                  default: false
+      responses:
+        default:
+          description: The created anonymous record upload request ID and initial status.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnonymousRecordUploadRespDto'
+      security:
+      - bearer: []
+      summary: Upload an Anonymous PDF Record
+      tags:
+      - Record Upload
+  /v1/records/uploads/{recordUploadId}/status:
+    get:
+      description: Retrieves the processing status for an anonymous record upload request.
+      operationId: RecordUploadController_getAnonymousRecordUploadStatus_v1
+      parameters:
+      - name: recordUploadId
+        required: true
+        in: path
+        description: The ID of the record upload request.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnonymousRecordUploadStatusRespDto'
+      security:
+      - bearer: []
+      summary: Get Anonymous Record Request Status
+      tags:
+      - Record Upload
+  /v2/records/upload:
+    post:
+      description: Upload patient records to Predoc. V2 introduces protection against creating duplicate patients with the same PII.
+      operationId: RecordUploadController_uploadRecordV2_v2
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RecordUploadV2InpDto'
+      responses:
+        default:
+          description: The patient ID and record upload ID for the uploaded record.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecordUploadV2RespDto'
+      security:
+      - bearer: []
+      summary: Upload Patient Records
+      tags:
+      - Record Upload
+components:
+  schemas:
+    AnonymousRecordUploadRespDto:
+      type: object
+      properties:
+        recordUploadId:
+          type: string
+          description: The ID of the record upload request.
+        status:
+          type: string
+          description: Current anonymous record upload processing status.
+          enum:
+          - IDENTIFYING
+          - PROCESSING
+          - READY_TO_VALIDATE
+          - VALIDATING
+          - VALIDATED
+          - ERROR
+          example: IDENTIFYING
+        message:
+          type: string
+          description: Human-readable status or error message.
+      required:
+      - recordUploadId
+      - status
+    RecordUploadPatientData:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: First name of the patient.
+          example: Martha
+          maxLength: 45
+        lastName:
+          type: string
+          description: Last name of the patient.
+          example: Rangel
+          maxLength: 60
+        dateOfBirth:
+          type: string
+          description: Date of birth of the patient, in `YYYY-MM-DD` format.
+          example: '1970-03-10'
+        phone:
+          type: string
+          description: Phone number of the patient, with no special characters (only digits).
+          example: '7175501675'
+          maxLength: 10
+        email:
+          type: string
+          description: Email address of the patient.
+          example: martha.rangel@domain.com
+        address1:
+          type: string
+          description: Street address line 1.
+          example: 4990 HOOVER RD
+        address2:
+          type: string
+          description: Street address line 2.
+          example: APT 227
+        city:
+          type: string
+          description: Name of the city.
+          example: GROVE CITY
+        state:
+          type: string
+          description: Two letter state code for the address.
+          example: OH
+        postalCode:
+          type: string
+          description: Postal code for the address - 5 digits.
+          example: '43123'
+        genderName:
+          type: string
+          description: Gender of the patient.
+          enum:
+          - male
+          - female
+          - na
+          - other
+      required:
+      - firstName
+      - lastName
+      - dateOfBirth
+      - phone
+      - postalCode
+      - genderName
+    RecordUploadV2InpDto:
+      type: object
+      properties:
+        patientData:
+          description: Patient data.
+          allOf:
+          - $ref: '#/components/schemas/RecordUploadPatientData'
+        partnerPatientId:
+          type: string
+          description: Partner patient ID.
+        appointmentDate:
+          type: string
+          description: Appointment date.
+        fileName:
+          type: string
+          description: File name.
+        notificationEmails:
+          description: Email to send completion notification to. Should belong to the organization profile
+          type: array
+          items:
+            type: string
+        allowDuplicatePatient:
+          type: boolean
+          description: Bypass the duplicate patient demographics check. This check only applies when creating a new patient (i.e., no partnerPatientId is provided). Defaults to false.
+          example: false
+      required:
+      - patientData
+      - partnerPatientId
+      - appointmentDate
+      - fileName
+      - notificationEmails
+    RecordProviderInfoDto:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: Provider first name.
+        lastName:
+          type: string
+          description: Provider last name.
+        designations:
+          description: Provider designations.
+          type: array
+          items:
+            type: string
+        providerFacilityType:
+          type: string
+          description: Provider facility type.
+        facilityName:
+          type: string
+          description: Facility name.
+        email:
+          type: string
+          description: Provider email.
+        inferredNpi:
+          type:
+          - string
+          - 'null'
+          description: Inferred provider NPI, or null when no inferred NPI exists.
+      required:
+      - designations
+    RecordUploadPatientDocumentDto:
+      type: object
+      properties:
+        documentId:
+          type: string
+          description: Generated patient document ID.
+        documentType:
+          type: string
+          description: Core patient document type.
+        downloadUrl:
+          type: string
+          description: Secure, time-limited URL to download the generated document.
+          format: uri
+        indexedRecordSpliceType:
+          type:
+          - string
+          - 'null'
+          description: Spliced indexed record classification for the generated document.
+          enum:
+          - CANVAS_SET
+          - SEGMENT_SET
+          - PRESPLICED
+      required:
+      - documentId
+      - documentType
+      - downloadUrl
+    AnonymousRecordUploadStatusRespDto:
+      type: object
+      properties:
+        recordUploadId:
+          type: string
+          description: The ID of the record upload request.
+        status:
+          type: string
+          description: Current anonymous record upload processing status.
+          enum:
+          - IDENTIFYING
+          - PROCESSING
+          - READY_TO_VALIDATE
+          - VALIDATING
+          - VALIDATED
+          - ERROR
+          example: IDENTIFYING
+        recipientProviders:
+          description: Recipient provider information.
+          type: array
+          items:
+            $ref: '#/components/schemas/RecordProviderInfoDto'
+        sendingProviders:
+          description: Sending provider information.
+          type: array
+          items:
+            $ref: '#/components/schemas/RecordProviderInfoDto'
+        originalDocumentDownloadUrl:
+          type: string
+          description: Secure URL to download the originally uploaded document. The URL expires after approximately 15 minutes; fetch the status again to receive a fresh URL.
+          format: uri
+        documents:
+          description: Generated anonymous record upload output documents with generated patient document IDs, document types, and secure download URLs.
+          type: array
+          items:
+            $ref: '#/components/schemas/RecordUploadPatientDocumentDto'
+      required:
+      - recordUploadId
+      - status
+      - originalDocumentDownloadUrl
+    RecordUploadV2RespDto:
+      type: object
+      properties:
+        patientId:
+          type: string
+          description: The ID of the patient associated with the uploaded record.
+          format: uuid
+        recordUploadId:
+          type: string
+          description: The ID of the record upload.
+          format: uuid
+      required:
+      - patientId
+      - recordUploadId
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+x-provenance:
+  method: searched
+  source: https://docs.predoc.ai/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.predoc.ai/reference/authcontroller_signin_v1.md
+  - https://docs.predoc.ai/reference/curatedpatientdatacontroller_getcuratedpatientdata_v1.md
+  - https://docs.predoc.ai/reference/documentcontroller_getpatientclinicalsummary_v1.md
+  - https://docs.predoc.ai/reference/patientcontroller_addrequesttoexistingpatient_v1.md
+  - https://docs.predoc.ai/reference/patientcontroller_createpatient_v2.md
+  - https://docs.predoc.ai/reference/patientcontroller_getavailablepatientchemistries_v1.md
+  - https://docs.predoc.ai/reference/patientcontroller_getpatientinformation_v1.md
+  - https://docs.predoc.ai/reference/patientcontroller_getpatientlabresultsbysearch_v1.md
+  - https://docs.predoc.ai/reference/patientcontroller_getpatientrequests_v1.md
+  - https://docs.predoc.ai/reference/patientcontroller_requestpatientclinicalsummary_v1.md
+  - https://docs.predoc.ai/reference/patientcontroller_searchpatientdocuments_v2.md
+  - https://docs.predoc.ai/reference/patientcontroller_searchpatientsbyinformation_v1.md
+  - https://docs.predoc.ai/reference/patientcontroller_updatepatientinformation_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientadditionalrecords_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientdocuments_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientdrugallergies_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientfacesheetoutput_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientfacesheets_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatienthiedocs_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientimagingresults_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientlabtests_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientmedications_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientotherrecords_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientprocedurenotes_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientproviderfacilitynotes_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientvaccinedocuments_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientvaccinerecords_v1.md
+  - https://docs.predoc.ai/reference/recorduploadcontroller_getanonymousrecorduploadstatus_v1.md
+  - https://docs.predoc.ai/reference/recorduploadcontroller_uploadanonymousrecord_v1.md
+  - https://docs.predoc.ai/reference/recorduploadcontroller_uploadrecordv2_v2.md
+  - https://docs.predoc.ai/reference/requestcontroller_createrecordrequestv2_v2.md
+  - https://docs.predoc.ai/reference/requestcontroller_facesheetconfigs_v1.md
+  - https://docs.predoc.ai/reference/requestcontroller_getlistofrecordrequests_v2.md
+  - https://docs.predoc.ai/reference/requestcontroller_updateexistingrecordrequest_v1.md
+  - https://docs.predoc.ai/reference/retrievalcontroller_closeretrieval_v1.md
+  - https://docs.predoc.ai/reference/retrievalcontroller_getretrieval_v1.md
+  - https://docs.predoc.ai/reference/webhookconfigurationcontroller_createwebhookconfiguration_v1.md
+  - https://docs.predoc.ai/reference/webhookconfigurationcontroller_deletewebhookconfiguration_v1.md
+  - https://docs.predoc.ai/reference/webhookconfigurationcontroller_listwebhookconfigurations_v1.md
+  - https://docs.predoc.ai/reference/webhookconfigurationcontroller_updatewebhookconfiguration_v1.md
+  merge:
+    pages: 40
+    deduped: 88
+    conflicts_kept_first: 0

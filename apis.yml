@@ -165,26 +165,16 @@ common:
   url: skills/_index.yml
 
 apis:
-- name: Predoc Partner API
-  description: REST API for retrieving, aggregating, and delivering structured patient medical records. Covers patient management, record-retrieval
-    requests, previous-provider retrievals, record uploads, granular clinical document endpoints, clinical summaries, and webhook configuration.
-    Authenticated with short-lived (5-minute) JWT bearer tokens obtained from client_id/secret_key credentials.
+- aid: predoc:predoc-authentication-api
+  name: Predoc Authentication API
+  description: The Authentication API from Predoc — 1 operation(s) for authentication.
   humanURL: https://docs.predoc.ai
   baseURL: https://partner-sandbox.predoc.ai/api/v1
-  version: 1.4.1
   tags:
-  - Healthcare
-  - Medical Records
-  - FHIR
-  - Webhook
-  tags_raw:
-  - Healthcare
-  - Medical Records
-  - FHIR
-  - Webhooks
+  - Authentication
   properties:
-  - url: openapi/predoc-partner-api-openapi.yml
-    type: OpenAPI
+  - type: OpenAPI
+    url: openapi/predoc-authentication-api-openapi.yml
   - type: Documentation
     url: https://docs.predoc.ai
   - type: APIReference
@@ -205,8 +195,186 @@ apis:
     url: json-schema/predoc-update-patient-information-inp-dto-schema.json
   - type: JSONSchema
     url: json-schema/predoc-create-patient-v2-inp-dto-schema.json
-  aid: predoc:predoc-partner-api
-
+- aid: predoc:predoc-documents-api
+  name: Predoc Documents API
+  description: The Documents API from Predoc — 1 operation(s) for documents.
+  humanURL: https://docs.predoc.ai
+  baseURL: https://partner-sandbox.predoc.ai/api/v1
+  tags:
+  - Documents
+  properties:
+  - type: OpenAPI
+    url: openapi/predoc-documents-api-openapi.yml
+  - type: Documentation
+    url: https://docs.predoc.ai
+  - type: APIReference
+    url: https://docs.predoc.ai/reference
+  - type: Authentication
+    url: authentication/predoc-authentication.yml
+  - type: Webhooks
+    url: asyncapi/predoc-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/predoc-create-patient-with-crr-v2-inp-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/predoc-modify-crr-inp-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/predoc-create-crr-inp-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/predoc-patient-info-response-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/predoc-update-patient-information-inp-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/predoc-create-patient-v2-inp-dto-schema.json
+- aid: predoc:predoc-events-api
+  name: Predoc Events API
+  description: The Events API from Predoc — 2 operation(s) for events.
+  humanURL: https://docs.predoc.ai
+  baseURL: https://partner-sandbox.predoc.ai/api/v1
+  tags:
+  - Events
+  properties:
+  - type: OpenAPI
+    url: openapi/predoc-events-api-openapi.yml
+  - type: Documentation
+    url: https://docs.predoc.ai
+  - type: APIReference
+    url: https://docs.predoc.ai/reference
+  - type: Authentication
+    url: authentication/predoc-authentication.yml
+  - type: Webhooks
+    url: asyncapi/predoc-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/predoc-create-patient-with-crr-v2-inp-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/predoc-modify-crr-inp-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/predoc-create-crr-inp-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/predoc-patient-info-response-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/predoc-update-patient-information-inp-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/predoc-create-patient-v2-inp-dto-schema.json
+- aid: predoc:predoc-patient-api
+  name: Predoc Patient API
+  description: The Patient API from Predoc — 23 operation(s) for patient.
+  humanURL: https://docs.predoc.ai
+  baseURL: https://partner-sandbox.predoc.ai/api/v1
+  tags:
+  - Patient
+  properties:
+  - type: OpenAPI
+    url: openapi/predoc-patient-api-openapi.yml
+  - type: Documentation
+    url: https://docs.predoc.ai
+  - type: APIReference
+    url: https://docs.predoc.ai/reference
+  - type: Authentication
+    url: authentication/predoc-authentication.yml
+  - type: Webhooks
+    url: asyncapi/predoc-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/predoc-create-patient-with-crr-v2-inp-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/predoc-modify-crr-inp-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/predoc-create-crr-inp-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/predoc-patient-info-response-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/predoc-update-patient-information-inp-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/predoc-create-patient-v2-inp-dto-schema.json
+- aid: predoc:predoc-record-request-api
+  name: Predoc Record Request API
+  description: The Record Request API from Predoc — 3 operation(s) for record request.
+  humanURL: https://docs.predoc.ai
+  baseURL: https://partner-sandbox.predoc.ai/api/v1
+  tags:
+  - Record Request
+  properties:
+  - type: OpenAPI
+    url: openapi/predoc-record-request-api-openapi.yml
+  - type: Documentation
+    url: https://docs.predoc.ai
+  - type: APIReference
+    url: https://docs.predoc.ai/reference
+  - type: Authentication
+    url: authentication/predoc-authentication.yml
+  - type: Webhooks
+    url: asyncapi/predoc-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/predoc-create-patient-with-crr-v2-inp-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/predoc-modify-crr-inp-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/predoc-create-crr-inp-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/predoc-patient-info-response-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/predoc-update-patient-information-inp-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/predoc-create-patient-v2-inp-dto-schema.json
+- aid: predoc:predoc-record-upload-api
+  name: Predoc Record Upload API
+  description: The Record Upload API from Predoc — 3 operation(s) for record upload.
+  humanURL: https://docs.predoc.ai
+  baseURL: https://partner-sandbox.predoc.ai/api/v1
+  tags:
+  - Record Upload
+  properties:
+  - type: OpenAPI
+    url: openapi/predoc-record-upload-api-openapi.yml
+  - type: Documentation
+    url: https://docs.predoc.ai
+  - type: APIReference
+    url: https://docs.predoc.ai/reference
+  - type: Authentication
+    url: authentication/predoc-authentication.yml
+  - type: Webhooks
+    url: asyncapi/predoc-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/predoc-create-patient-with-crr-v2-inp-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/predoc-modify-crr-inp-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/predoc-create-crr-inp-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/predoc-patient-info-response-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/predoc-update-patient-information-inp-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/predoc-create-patient-v2-inp-dto-schema.json
+- aid: predoc:predoc-retrieval-api
+  name: Predoc Retrieval API
+  description: The Retrieval API from Predoc — 2 operation(s) for retrieval.
+  humanURL: https://docs.predoc.ai
+  baseURL: https://partner-sandbox.predoc.ai/api/v1
+  tags:
+  - Retrieval
+  properties:
+  - type: OpenAPI
+    url: openapi/predoc-retrieval-api-openapi.yml
+  - type: Documentation
+    url: https://docs.predoc.ai
+  - type: APIReference
+    url: https://docs.predoc.ai/reference
+  - type: Authentication
+    url: authentication/predoc-authentication.yml
+  - type: Webhooks
+    url: asyncapi/predoc-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/predoc-create-patient-with-crr-v2-inp-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/predoc-modify-crr-inp-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/predoc-create-crr-inp-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/predoc-patient-info-response-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/predoc-update-patient-information-inp-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/predoc-create-patient-v2-inp-dto-schema.json
 x-enrichment:
   date: '2026-07-20'
   status: enriched

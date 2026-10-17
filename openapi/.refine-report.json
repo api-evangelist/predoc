@@ -1,0 +1,32 @@
+{
+  "provider": "predoc",
+  "sources": [
+    "predoc-partner-api-openapi.yml"
+  ],
+  "outputs": [
+    "predoc-authentication-api-openapi.yml",
+    "predoc-documents-api-openapi.yml",
+    "predoc-events-api-openapi.yml",
+    "predoc-patient-api-openapi.yml",
+    "predoc-record-request-api-openapi.yml",
+    "predoc-record-upload-api-openapi.yml",
+    "predoc-retrieval-api-openapi.yml"
+  ],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
+  "errors": [],
+  "warnings": [
+    "predoc-partner-api-openapi.yml: previously refined output kept for 40 operation(s) no archived document covers (e.g. /v1/auth/token post, /v1/documents/{documentId} get, /v1/events get); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth."
+  ],
+  "notes": [
+    "sourced from openapi/_original/ (0 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "predoc-partner-api-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "predoc-partner-api-openapi.yml: declared missing tag: Events",
+    "predoc-partner-api-openapi.yml: declared missing tag: Record Upload",
+    "predoc-partner-api-openapi.yml: declared missing tag: Retrieval",
+    "superseded outputs removed: predoc-partner-api-openapi.yml",
+    "apis.yml register: written (+7 apis, 7 total)"
+  ],
+  "skipped": []
+}

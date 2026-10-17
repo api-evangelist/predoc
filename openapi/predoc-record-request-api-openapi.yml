@@ -1,0 +1,783 @@
+openapi: 3.2.0
+info:
+  title: Predoc Partner Record Request API
+  description: API for the Predoc platform to allow partners to request the retrieval of patient records.
+  version: '1.1'
+  contact: {}
+servers:
+- url: https://partner-api-stage.predoc.ai/api
+tags:
+- name: Record Request
+  description: ''
+paths:
+  /v1/requests/facesheet-configs:
+    get:
+      description: Returns the available facesheet configurations. Pass a configuration ID when creating a patient request to generate the corresponding facesheet.
+      operationId: RequestController_facesheetConfigs_v1
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FacesheetConfigListRespDto'
+      security:
+      - bearer: []
+      summary: List of Facesheet Configs Available
+      tags:
+      - Record Request
+  /v1/requests/{requestId}:
+    patch:
+      description: Updates an existing patient record request if processing has not started. If the request can no longer be updated, the response indicates that the update was unsuccessful.
+      operationId: RequestController_updateExistingRecordRequest_v1
+      parameters:
+      - name: requestId
+        required: true
+        in: path
+        description: Request id.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModifyCrrInpDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateRequestRespDto'
+      security:
+      - bearer: []
+      summary: Update Existing Patient Record Request
+      tags:
+      - Record Request
+  /v2/requests:
+    post:
+      description: Creates a patient and a record-retrieval request, associates them with the organization for the authenticated credential, and returns a request ID for checking status and retrieving documents programmatically. V2 also protects against creating duplicate patients with the same personally identifiable information.
+      operationId: RequestController_createRecordRequestV2_v2
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePatientWithCrrV2InpDto'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecordRequestRespDto'
+      security:
+      - bearer: []
+      summary: Create Patient with Record Request
+      tags:
+      - Record Request
+    get:
+      description: Returns all patient record requests in Predoc. Returned request and reference identifiers can be used to correlate requests and retrieve the corresponding patient information.
+      operationId: RequestController_getListOfRecordRequests_v2
+      parameters:
+      - name: offset
+        required: true
+        in: query
+        description: Paging offset.
+        schema:
+          type: number
+      - name: limit
+        required: true
+        in: query
+        description: Max number of records in the response.
+        schema:
+          type: number
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecordRequestListRespDto'
+      security:
+      - bearer: []
+      summary: List of All Patient Record Requests
+      tags:
+      - Record Request
+components:
+  schemas:
+    RecordRequestListRespDto:
+      type: object
+      properties:
+        recordRequests:
+          description: List of patients and their associated record requests.
+          type: array
+          items:
+            $ref: '#/components/schemas/OrganizationPatientStatusRespDto'
+        pagination:
+          description: Pagination info.
+          allOf:
+          - $ref: '#/components/schemas/PaginationRespDto'
+      required:
+      - recordRequests
+      - pagination
+    PreviousProviderInpDto:
+      type: object
+      properties:
+        orgName:
+          type: string
+          description: Full name of the organization provider. This is only required when `providerFirstName` and `providerLastName` are not used.
+        providerFirstName:
+          type: string
+          description: First name of the provider. This is only required when `orgName` is not used.
+        providerLastName:
+          type: string
+          description: Last name of the provider. This is only required when `orgName` is not used.
+        practiceName:
+          type: string
+          description: Provider's practice name.
+        orgAddress:
+          description: Physical address of the organization's provider.
+          allOf:
+          - $ref: '#/components/schemas/AddressPreviousProviderInpDto'
+        orgPhoneCountryCode:
+          type: string
+          default: '+1'
+          deprecated: true
+          description: Country code of the organization's phone number with a + at the beginning.
+          example: '+1'
+        orgPhoneNumber:
+          type: string
+          description: Phone number of the organization, with no special characters (digits only).
+          example: '5553643856'
+        orgFaxNumber:
+          type: string
+          description: Fax number of the organization, with no special characters (digits only).
+          example: '5553643856'
+        datesOfService:
+          description: Date range of when the organization provided care to the patient.
+          allOf:
+          - $ref: '#/components/schemas/RequestDatesOfServiceInpDto'
+        specificMedicalRecordRequested:
+          type: string
+          description: Type of custom document requested, if necessary.
+          example: oncology
+      required:
+      - orgName
+      - providerFirstName
+      - providerLastName
+      - datesOfService
+    UpdateRequestRespDto:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Result of the request update.
+          example: Request updated successfully
+        requestId:
+          type: string
+          description: Request ID that was updated.
+          format: uuid
+        partnerPatientId:
+          type: string
+          description: Partner patient ID that the request belongs to.
+          format: uuid
+        status:
+          type: string
+          description: Status of the request.
+          example: OPEN
+        referenceId:
+          type: string
+          description: User-defined reference number for the request. This can be used for your own records and is not used by the Predoc platform.
+          example: '1234567890'
+      required:
+      - message
+      - requestId
+      - partnerPatientId
+      - status
+    OrganizationPatientStatusRespDto:
+      type: object
+      properties:
+        patient:
+          description: Patient data.
+          allOf:
+          - $ref: '#/components/schemas/PatientDataRespDto'
+        requests:
+          description: List of request IDs with referenceIds.
+          type: array
+          items:
+            $ref: '#/components/schemas/PatientCrrRequestShortRespDto'
+      required:
+      - patient
+      - requests
+    PatientCrrRequestShortRespDto:
+      type: object
+      properties:
+        requestId:
+          type: string
+          description: ID of the request.
+          format: uuid
+        referenceId:
+          type: string
+          description: User-defined reference number for the request. This can be used for your own records and is not used by the Predoc platform.
+          example: '1234567890'
+      required:
+      - requestId
+    RecordRequestRespDto:
+      type: object
+      properties:
+        partnerPatientId:
+          type: string
+          description: Partner patient ID for use when making patient requests.
+          format: uuid
+        requestId:
+          type: string
+          description: Predoc request identifier for the new patient request.
+          format: uuid
+        message:
+          type: string
+          description: Any processing or error messages associated with the request. This field is optional and may be omitted if no message is available.
+          example: Patient created successfully
+        referenceId:
+          type: string
+          description: User-defined reference number for the request. This can be used for your own records and is not used by the Predoc platform.
+          example: '1234567890'
+        previousProviderRetrievals:
+          description: Created previous-provider retrievals associated with the request.
+          example:
+          - id: 11111111-1111-4111-8111-111111111111
+          type: array
+          items:
+            $ref: '#/components/schemas/PreviousProviderRetrievalRespDto'
+      required:
+      - partnerPatientId
+      - requestId
+      - message
+      - previousProviderRetrievals
+    CreatePatientWithCrrV2InpDto:
+      type: object
+      properties:
+        releaseToOrgName:
+          type: string
+          description: Name of the organization making the request.
+          example: ABC Hospital
+        releaseToProviderName:
+          type: string
+          description: Name of the provider the patient is being released to.
+          example: Dr. Jane Doe
+        previousProviders:
+          description: List of previous providers known for the requested patient.
+          type: array
+          items:
+            $ref: '#/components/schemas/PreviousProviderInpDto'
+        doNotKnowPreviousProvider:
+          type: boolean
+          deprecated: true
+          description: <strong>NOTE:</strong> This field is deprecated and will be removed in a future release. Please use the `previousProviders` field instead.
+        reasonForRequest:
+          type: integer
+          description: 'Reason for the request: `0` for Future Appointment or `2` for Information Gathering.'
+          example: 0
+          enum:
+          - 0
+          - 2
+        futureAppointmentDate:
+          type: string
+          description: Date of the future appointment in `YYYY-MM-DD` format. Required if the request reason is `0 (Future Appointment)`.
+          example: '2026-09-17'
+        requestingProviderEmail:
+          type: string
+          description: Email address of the provider or physician making the request.
+          example: jane.doe@domain.com
+        patientAuthFile:
+          description: Base-64 encoded file data for the patient authorization file, if available.
+          allOf:
+          - $ref: '#/components/schemas/EncodedFileInpDto'
+        referenceId:
+          type: string
+          description: User-defined reference number for the request. This can be used for your own records and is not used by the Predoc platform.
+          example: '1234567890'
+        sendHieRequest:
+          type: boolean
+          description: Send HIE request.
+          example: true
+        sendMedicationsRequest:
+          type: boolean
+          description: Send Medications request.
+          example: true
+        facesheetConfigId:
+          type: string
+          description: Facesheet config ID to generate request with.
+        facesheetConfigIds:
+          description: Facesheet config IDs to generate request with.
+          type: array
+          items:
+            type: string
+            format: uuid
+        firstName:
+          type: string
+          description: First name of the patient.
+          example: Martha
+          minLength: 2
+          maxLength: 45
+        middleInitial:
+          type: string
+          description: Middle initial of the patient.
+          example: S
+        lastName:
+          type: string
+          description: Last name of the patient.
+          example: Rangel
+          minLength: 2
+          maxLength: 60
+        dateOfBirth:
+          type: string
+          description: Date of birth of the patient, in `YYYY-MM-DD` format.
+          example: '1970-03-10'
+        phoneCountryCode:
+          type: string
+          deprecated: true
+          description: Country code of the patient's phone number with a `+` at the beginning. Defaults to +1.
+          example: '+1'
+        phoneNumber:
+          type: string
+          description: Phone number of the patient, with no special characters (only digits).
+          example: '7175501675'
+          minLength: 10
+          maxLength: 10
+        email:
+          type: string
+          description: Email address of the patient.
+          example: martha.rangel@domain.com
+        patientAddress:
+          description: Physical address of the patient.
+          allOf:
+          - $ref: '#/components/schemas/AddressInpDto'
+        patientGender:
+          type: string
+          description: Gender of the patient.
+          enum:
+          - male
+          - female
+          - na
+          - other
+        allowDuplicatePatient:
+          type: boolean
+          description: Override the patient demographics check and create the patient regardless of whether a patient with the same PII exists.
+          example: false
+      required:
+      - releaseToOrgName
+      - releaseToProviderName
+      - previousProviders
+      - reasonForRequest
+      - requestingProviderEmail
+      - firstName
+      - lastName
+      - dateOfBirth
+      - phoneNumber
+      - patientAddress
+      - patientGender
+    PreviousProviderUpdInpDto:
+      type: object
+      properties:
+        orgName:
+          type: string
+          description: Full name of the organization provider. This is only required when `providerFirstName` and `providerLastName` are not used.
+        providerFirstName:
+          type: string
+          description: First name of the provider. This is only required when `orgName` is not used.
+        providerLastName:
+          type: string
+          description: Last name of the provider. This is only required when `orgName` is not used.
+        practiceName:
+          type: string
+          description: Provider's practice name.
+        orgAddress:
+          description: Physical address of the organization's provider.
+          allOf:
+          - $ref: '#/components/schemas/AddressPreviousProviderInpDto'
+        orgPhoneCountryCode:
+          type: string
+          default: '+1'
+          deprecated: true
+          description: Country code of the organization's phone number with a + at the beginning.
+          example: '+1'
+        orgPhoneNumber:
+          type: string
+          description: Phone number of the organization, with no special characters (digits only).
+          example: '5553643856'
+        orgFaxNumber:
+          type: string
+          description: Fax number of the organization, with no special characters (digits only).
+          example: '5553643856'
+        datesOfService:
+          description: Date range of when the organization provided care to the patient.
+          allOf:
+          - $ref: '#/components/schemas/RequestDatesOfServiceInpDto'
+        specificMedicalRecordRequested:
+          type: string
+          description: Type of custom document requested, if necessary.
+          example: oncology
+        id:
+          type: number
+          description: Record identifier in case of editing existing instance.
+      required:
+      - orgName
+      - providerFirstName
+      - providerLastName
+      - datesOfService
+    PreviousProviderRetrievalRespDto:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Previous-provider retrieval identifier UUID.
+          format: uuid
+          example: 11111111-1111-4111-8111-111111111111
+      required:
+      - id
+    RequestDatesOfServiceInpDto:
+      type: object
+      properties:
+        serviceStartDate:
+          type: string
+          description: Date of when the organization started providing care to the patient.
+          example: '2026-08-09'
+        serviceEndDate:
+          type: string
+          description: End date of when the organization stopped providing care to the patient.
+          example: '2026-09-09'
+      required:
+      - serviceStartDate
+      - serviceEndDate
+    AddressRespDto:
+      type: object
+      properties: {}
+    EncodedFileInpDto:
+      type: object
+      properties:
+        encodedFile:
+          type: string
+          description: Base-64 encoded data of the file being uploaded.
+          format: base64
+        fileExtension:
+          type: string
+          description: File extension of the file being uploaded.
+          example: pdf
+        dataType:
+          type: string
+          description: Type of the file being uploaded.
+          example: image
+      required:
+      - encodedFile
+      - fileExtension
+      - dataType
+    FacesheetConfigListRespDto:
+      type: object
+      properties:
+        facesheetConfigs:
+          description: List of facesheet configs available.
+          type: array
+          items:
+            $ref: '#/components/schemas/FacesheetConfigRespDto'
+      required:
+      - facesheetConfigs
+    AddressPreviousProviderInpDto:
+      type: object
+      properties:
+        addressLine1:
+          type: string
+          description: Street address line 1.
+          example: 123 Main St
+        addressLine2:
+          type: string
+          description: Street address line 2.
+          example: 'Apt # 123'
+        city:
+          type: string
+          description: Name of the city.
+          example: Charlotte
+        stateCode:
+          type: string
+          description: Two letter state code for the address.
+          example: NC
+        postalCode:
+          type: string
+          description: Postal code for the address - 5 digits.
+          example: '28105'
+        countryCode:
+          type: string
+          description: <strong>NOTE:</strong> This field is deprecated and will be removed in a future release.
+          default: USA
+          deprecated: true
+          example: USA
+    PaginationRespDto:
+      type: object
+      properties:
+        offset:
+          type: number
+          description: Offset of this chunk in the list.
+        limit:
+          type: number
+          description: Amount records returned.
+        total:
+          type: number
+          description: Total amount of records.
+      required:
+      - offset
+      - limit
+      - total
+    AddressInpDto:
+      type: object
+      properties:
+        addressLine1:
+          type: string
+          description: Street address line 1.
+          example: 4990 HOOVER RD
+        addressLine2:
+          type: string
+          description: Street address line 2.
+          example: APT 227
+        city:
+          type: string
+          description: Name of the city.
+          example: GROVE CITY
+        stateCode:
+          type: string
+          description: Two letter state code for the address.
+          example: OH
+        postalCode:
+          type: string
+          description: Postal code for the address - 5 digits.
+          example: '43123'
+        countryCode:
+          type: string
+          description: <strong>NOTE:</strong> This field is deprecated and will be removed in a future release.
+          default: USA
+          deprecated: true
+          example: USA
+      required:
+      - postalCode
+    FacesheetConfigRespDto:
+      type: object
+      properties:
+        facesheetId:
+          type: string
+          description: Config ID.
+        facesheetName:
+          type: string
+          description: Config display name.
+      required:
+      - facesheetId
+      - facesheetName
+    ModifyCrrInpDto:
+      type: object
+      properties:
+        releaseToOrgName:
+          type: string
+          description: Name of the organization making the request.
+          example: ABC Hospital
+        releaseToProviderName:
+          type: string
+          description: Name of the provider the patient is being released to.
+          example: Dr. Jane Doe
+        previousProviders:
+          description: List of previous providers known for the requested patient.
+          type: array
+          items:
+            $ref: '#/components/schemas/PreviousProviderUpdInpDto'
+        doNotKnowPreviousProvider:
+          type: boolean
+          deprecated: true
+          description: <strong>NOTE:</strong> This field is deprecated and will be removed in a future release. Please use the `previousProviders` field instead.
+        reasonForRequest:
+          type: integer
+          description: 'Reason for the request: `0` for Future Appointment or `2` for Information Gathering.'
+          example: 0
+          enum:
+          - 0
+          - 2
+        futureAppointmentDate:
+          type: string
+          description: Date of the future appointment in `YYYY-MM-DD` format. Required if the request reason is `0 (Future Appointment)`.
+          example: '2026-09-17'
+        requestingProviderEmail:
+          type: string
+          description: Email address of the provider or physician making the request.
+          example: jane.doe@domain.com
+        patientAuthFile:
+          description: Base-64 encoded file data for the patient authorization file, if available.
+          allOf:
+          - $ref: '#/components/schemas/EncodedFileInpDto'
+        referenceId:
+          type: string
+          description: User-defined reference number for the request. This can be used for your own records and is not used by the Predoc platform.
+          example: '1234567890'
+        sendMedicationsRequest:
+          type: boolean
+          description: Send Medications request.
+          example: true
+        facesheetConfigId:
+          type: string
+          description: Facesheet config ID to generate request with.
+        facesheetConfigIds:
+          description: Facesheet config IDs to generate request with.
+          type: array
+          items:
+            type: string
+            format: uuid
+        patientId:
+          type: string
+          description: ID of the patient to modify the request for.
+          format: uuid
+      required:
+      - releaseToOrgName
+      - releaseToProviderName
+      - previousProviders
+      - reasonForRequest
+      - requestingProviderEmail
+      - patientId
+    PatientDataRespDto:
+      type: object
+      properties:
+        middleName:
+          type: string
+          description: Middle name of the patient.
+          example: Sara
+        firstName:
+          type: string
+          description: First name of the patient.
+          example: Martha
+        lastName:
+          type: string
+          description: Last name of the patient.
+          example: Rangel
+        address:
+          description: Physical address of the patient.
+          example:
+            address1: 4990 HOOVER RD
+            address2: APT 227
+            city: GROVE CITY
+            state: OH
+            postalCode: '43123'
+          allOf:
+          - $ref: '#/components/schemas/AddressRespDto'
+        dateOfBirth:
+          type: string
+          description: Date of birth of the patient, in `YYYY-MM-DD` format.
+          format: date
+          example: '1970-03-10'
+        genderName:
+          type: string
+          description: Gender of the patient.
+          example: female
+        phoneNumber:
+          type: string
+          description: Phone number of the patient, as digits only.
+          example: '7175501675'
+        email:
+          type: string
+          description: Email address of the patient.
+          example: martha.rangel@domain.com
+        primaryLanguage:
+          type: string
+          description: Primary language of the patient.
+          example: english
+        cumulativePatientStatus:
+          type: object
+          properties:
+            OPEN:
+              example: 3
+              type: number
+            COMPLETED:
+              example: 3
+              type: number
+            PROCESSING:
+              example: 1
+              type: number
+            ACTION REQUIRED:
+              example: 1
+              type: number
+            CLOSED:
+              example: 2
+              type: number
+            CANCELLED:
+              example: 1
+              type: number
+        partnerPatientId:
+          type: string
+          description: Partner patient ID that can be used for patient requests.
+          format: uuid
+        patientKey:
+          type: string
+          description: Patient key.
+      required:
+      - firstName
+      - lastName
+      - address
+      - dateOfBirth
+      - genderName
+      - phoneNumber
+      - primaryLanguage
+      - cumulativePatientStatus
+      - partnerPatientId
+      - patientKey
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+x-provenance:
+  method: searched
+  source: https://docs.predoc.ai/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.predoc.ai/reference/authcontroller_signin_v1.md
+  - https://docs.predoc.ai/reference/curatedpatientdatacontroller_getcuratedpatientdata_v1.md
+  - https://docs.predoc.ai/reference/documentcontroller_getpatientclinicalsummary_v1.md
+  - https://docs.predoc.ai/reference/patientcontroller_addrequesttoexistingpatient_v1.md
+  - https://docs.predoc.ai/reference/patientcontroller_createpatient_v2.md
+  - https://docs.predoc.ai/reference/patientcontroller_getavailablepatientchemistries_v1.md
+  - https://docs.predoc.ai/reference/patientcontroller_getpatientinformation_v1.md
+  - https://docs.predoc.ai/reference/patientcontroller_getpatientlabresultsbysearch_v1.md
+  - https://docs.predoc.ai/reference/patientcontroller_getpatientrequests_v1.md
+  - https://docs.predoc.ai/reference/patientcontroller_requestpatientclinicalsummary_v1.md
+  - https://docs.predoc.ai/reference/patientcontroller_searchpatientdocuments_v2.md
+  - https://docs.predoc.ai/reference/patientcontroller_searchpatientsbyinformation_v1.md
+  - https://docs.predoc.ai/reference/patientcontroller_updatepatientinformation_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientadditionalrecords_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientdocuments_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientdrugallergies_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientfacesheetoutput_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientfacesheets_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatienthiedocs_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientimagingresults_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientlabtests_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientmedications_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientotherrecords_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientprocedurenotes_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientproviderfacilitynotes_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientvaccinedocuments_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientvaccinerecords_v1.md
+  - https://docs.predoc.ai/reference/recorduploadcontroller_getanonymousrecorduploadstatus_v1.md
+  - https://docs.predoc.ai/reference/recorduploadcontroller_uploadanonymousrecord_v1.md
+  - https://docs.predoc.ai/reference/recorduploadcontroller_uploadrecordv2_v2.md
+  - https://docs.predoc.ai/reference/requestcontroller_createrecordrequestv2_v2.md
+  - https://docs.predoc.ai/reference/requestcontroller_facesheetconfigs_v1.md
+  - https://docs.predoc.ai/reference/requestcontroller_getlistofrecordrequests_v2.md
+  - https://docs.predoc.ai/reference/requestcontroller_updateexistingrecordrequest_v1.md
+  - https://docs.predoc.ai/reference/retrievalcontroller_closeretrieval_v1.md
+  - https://docs.predoc.ai/reference/retrievalcontroller_getretrieval_v1.md
+  - https://docs.predoc.ai/reference/webhookconfigurationcontroller_createwebhookconfiguration_v1.md
+  - https://docs.predoc.ai/reference/webhookconfigurationcontroller_deletewebhookconfiguration_v1.md
+  - https://docs.predoc.ai/reference/webhookconfigurationcontroller_listwebhookconfigurations_v1.md
+  - https://docs.predoc.ai/reference/webhookconfigurationcontroller_updatewebhookconfiguration_v1.md
+  merge:
+    pages: 40
+    deduped: 88
+    conflicts_kept_first: 0

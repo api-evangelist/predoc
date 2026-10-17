@@ -1,0 +1,325 @@
+openapi: 3.2.0
+info:
+  title: Predoc Partner Events API
+  description: API for the Predoc platform to allow partners to request the retrieval of patient records.
+  version: '1.1'
+  contact: {}
+servers:
+- url: https://partner-api-stage.predoc.ai/api
+tags:
+- name: Events
+paths:
+  /v1/events:
+    post:
+      description: Creates a webhook configuration for the authenticated credential.
+      operationId: WebhookConfigurationController_createWebhookConfiguration_v1
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookConfigurationCreateInpDto'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateWebhookConfigRespDto'
+      security:
+      - bearer: []
+      summary: Create Webhook Configuration
+      tags:
+      - Events
+    get:
+      description: Returns all webhook configurations associated with the authenticated credential.
+      operationId: WebhookConfigurationController_listWebhookConfigurations_v1
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WebhookConfigRespDto'
+      security:
+      - bearer: []
+      summary: List Webhook Configurations
+      tags:
+      - Events
+  /v1/events/{configurationId}:
+    patch:
+      description: Updates the specified webhook configuration for the authenticated credential.
+      operationId: WebhookConfigurationController_updateWebhookConfiguration_v1
+      parameters:
+      - name: configurationId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookConfigurationUpdateInpDto'
+      responses:
+        '200':
+          description: ''
+      security:
+      - bearer: []
+      summary: Update Webhook Configuration
+      tags:
+      - Events
+    delete:
+      description: Deletes the specified webhook configuration for the authenticated credential.
+      operationId: WebhookConfigurationController_deleteWebhookConfiguration_v1
+      parameters:
+      - name: configurationId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      security:
+      - bearer: []
+      summary: Delete Webhook Configuration
+      tags:
+      - Events
+components:
+  schemas:
+    WebhookCustomHeaderDto:
+      type: object
+      properties:
+        key:
+          type: string
+          description: Header name that will be sent with webhook requests
+          example: X-Partner-Auth
+          minLength: 1
+          maxLength: 100
+        value:
+          type: string
+          description: Header value that will be sent with webhook requests
+          example: secret-token
+          minLength: 1
+          maxLength: 4000
+      required:
+      - key
+      - value
+    WebhookConfigRespDto:
+      type: object
+      properties:
+        configurationId:
+          type: string
+          description: Webhook configuration identifier.
+          format: uuid
+        eventType:
+          description: Subscribed webhook event type.
+          example: ANONYMOUS_RECORD_UPLOAD_ERROR
+          allOf:
+          - $ref: '#/components/schemas/WebhookEventType'
+        serviceName:
+          type: string
+          description: Human-readable webhook service name.
+          example: Anonymous Uploads
+        url:
+          type: string
+          description: Webhook delivery URL.
+          example: https://hook.example.com/webhook/analysis
+        notificationEmail:
+          type: string
+          description: Notification email used for repeated delivery failures.
+          example: test@example.com
+        isActive:
+          type: boolean
+          description: Whether this configuration is active.
+          example: true
+        customHeaders:
+          description: Custom headers that will be appended to webhook deliveries.
+          type: array
+          items:
+            $ref: '#/components/schemas/WebhookCustomHeaderRespDto'
+      required:
+      - configurationId
+      - eventType
+      - serviceName
+      - url
+      - notificationEmail
+      - isActive
+      - customHeaders
+    WebhookCustomHeaderRespDto:
+      type: object
+      properties:
+        key:
+          type: string
+          description: Header name appended to webhook deliveries.
+          example: X-Partner-Auth
+        value:
+          type: string
+          description: Header value appended to webhook deliveries.
+          example: secret-token
+      required:
+      - key
+      - value
+    WebhookConfigurationCreateInpDto:
+      type: object
+      properties:
+        eventType:
+          description: The event type to subscribe to.
+          example: REQUEST_COMPLETE
+          allOf:
+          - $ref: '#/components/schemas/WebhookEventType'
+        serviceName:
+          type: string
+          description: The service name to subscribe to
+          example: Analysis Ingestion
+        notificationEmail:
+          type: string
+          description: The email to send a notification to if/when the amount of sending retries exceeded
+          example: test@example.com
+        webhookUri:
+          type: string
+          description: The webhook URI to subscribe to
+          example: https://hook.example.com/webhook/analysis
+        customHeaders:
+          description: Optional custom headers appended to webhook deliveries
+          example:
+          - key: X-Partner-Auth
+            value: abc123
+          - key: X-Client-Id
+            value: pat-123
+          type: array
+          items:
+            $ref: '#/components/schemas/WebhookCustomHeaderDto'
+      required:
+      - eventType
+      - serviceName
+      - notificationEmail
+      - webhookUri
+    WebhookConfigurationUpdateInpDto:
+      type: object
+      properties:
+        serviceName:
+          type: string
+          description: The service name to subscribe to
+          example: Analysis Ingestion
+        notificationEmail:
+          type: string
+          description: The email to send a notification to if/when the amount of sending retries exceeded
+          example: test@example.com
+        webhookUri:
+          type: string
+          description: The webhook URI to subscribe to
+          example: https://hook.example.com/webhook/analysis
+        isActive:
+          type: boolean
+          description: Whether the webhook is active
+          example: true
+        customHeaders:
+          description: Optional custom headers appended to webhook deliveries
+          type: array
+          items:
+            $ref: '#/components/schemas/WebhookCustomHeaderDto'
+      required:
+      - serviceName
+      - notificationEmail
+      - webhookUri
+      - isActive
+    CreateWebhookConfigRespDto:
+      type: object
+      properties:
+        configurationId:
+          type: string
+          description: Webhook configuration identifier.
+          format: uuid
+        eventType:
+          description: Subscribed webhook event type.
+          example: ANONYMOUS_RECORD_UPLOAD_COMPLETED
+          allOf:
+          - $ref: '#/components/schemas/WebhookEventType'
+        serviceName:
+          type: string
+          description: Human-readable webhook service name.
+          example: Anonymous Uploads
+        customHeaders:
+          description: Custom headers that will be appended to webhook deliveries.
+          type: array
+          items:
+            $ref: '#/components/schemas/WebhookCustomHeaderRespDto'
+      required:
+      - configurationId
+      - eventType
+      - serviceName
+      - customHeaders
+    WebhookEventType:
+      type: string
+      enum:
+      - REQUEST_COMPLETE
+      - RETRIEVAL_COMPLETE
+      - DOCUMENT_UPLOADED
+      - ANALYSIS_COMPLETE
+      - ANONYMOUS_RECORD_UPLOAD_COMPLETED
+      - ANONYMOUS_RECORD_UPLOAD_ERROR
+      - CURATED_DATA
+      description: Subscribed webhook event type.
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+x-provenance:
+  method: searched
+  source: https://docs.predoc.ai/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.predoc.ai/reference/authcontroller_signin_v1.md
+  - https://docs.predoc.ai/reference/curatedpatientdatacontroller_getcuratedpatientdata_v1.md
+  - https://docs.predoc.ai/reference/documentcontroller_getpatientclinicalsummary_v1.md
+  - https://docs.predoc.ai/reference/patientcontroller_addrequesttoexistingpatient_v1.md
+  - https://docs.predoc.ai/reference/patientcontroller_createpatient_v2.md
+  - https://docs.predoc.ai/reference/patientcontroller_getavailablepatientchemistries_v1.md
+  - https://docs.predoc.ai/reference/patientcontroller_getpatientinformation_v1.md
+  - https://docs.predoc.ai/reference/patientcontroller_getpatientlabresultsbysearch_v1.md
+  - https://docs.predoc.ai/reference/patientcontroller_getpatientrequests_v1.md
+  - https://docs.predoc.ai/reference/patientcontroller_requestpatientclinicalsummary_v1.md
+  - https://docs.predoc.ai/reference/patientcontroller_searchpatientdocuments_v2.md
+  - https://docs.predoc.ai/reference/patientcontroller_searchpatientsbyinformation_v1.md
+  - https://docs.predoc.ai/reference/patientcontroller_updatepatientinformation_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientadditionalrecords_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientdocuments_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientdrugallergies_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientfacesheetoutput_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientfacesheets_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatienthiedocs_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientimagingresults_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientlabtests_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientmedications_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientotherrecords_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientprocedurenotes_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientproviderfacilitynotes_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientvaccinedocuments_v1.md
+  - https://docs.predoc.ai/reference/patientdocumentscontroller_getpatientvaccinerecords_v1.md
+  - https://docs.predoc.ai/reference/recorduploadcontroller_getanonymousrecorduploadstatus_v1.md
+  - https://docs.predoc.ai/reference/recorduploadcontroller_uploadanonymousrecord_v1.md
+  - https://docs.predoc.ai/reference/recorduploadcontroller_uploadrecordv2_v2.md
+  - https://docs.predoc.ai/reference/requestcontroller_createrecordrequestv2_v2.md
+  - https://docs.predoc.ai/reference/requestcontroller_facesheetconfigs_v1.md
+  - https://docs.predoc.ai/reference/requestcontroller_getlistofrecordrequests_v2.md
+  - https://docs.predoc.ai/reference/requestcontroller_updateexistingrecordrequest_v1.md
+  - https://docs.predoc.ai/reference/retrievalcontroller_closeretrieval_v1.md
+  - https://docs.predoc.ai/reference/retrievalcontroller_getretrieval_v1.md
+  - https://docs.predoc.ai/reference/webhookconfigurationcontroller_createwebhookconfiguration_v1.md
+  - https://docs.predoc.ai/reference/webhookconfigurationcontroller_deletewebhookconfiguration_v1.md
+  - https://docs.predoc.ai/reference/webhookconfigurationcontroller_listwebhookconfigurations_v1.md
+  - https://docs.predoc.ai/reference/webhookconfigurationcontroller_updatewebhookconfiguration_v1.md
+  merge:
+    pages: 40
+    deduped: 88
+    conflicts_kept_first: 0
