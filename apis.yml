@@ -231,6 +231,8 @@ apis:
   humanURL: https://docs.predoc.ai
   baseURL: https://partner-sandbox.predoc.ai/api/v1
   tags:
+  - Event
+  tags_raw:
   - Events
   properties:
   - type: OpenAPI
@@ -261,6 +263,8 @@ apis:
   humanURL: https://docs.predoc.ai
   baseURL: https://partner-sandbox.predoc.ai/api/v1
   tags:
+  - Patients
+  tags_raw:
   - Patient
   properties:
   - type: OpenAPI
